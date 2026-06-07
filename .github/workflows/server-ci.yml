@@ -1,0 +1,93 @@
+name: Server CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "code/server/**"
+      - ".github/workflows/server-ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "code/server/**"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: code/server
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt ruff pyright
+
+      - name: Ruff lint
+        run: ruff check app/
+
+      - name: Ruff format check
+        run: ruff format --check app/
+
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    defaults:
+      run:
+        working-directory: code/server
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest pytest-asyncio httpx
+
+      - name: Run tests
+        run: python -m pytest tests/ -v --tb=short
+
+  docker:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    defaults:
+      run:
+        working-directory: code/server
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: code/server
+          push: false
+          load: true
+          tags: who-are-u-api:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test health endpoint
+        run: |
+          docker run -d --name who-are-u-api -p 8000:8000 \
+            -e AI_API_KEY=test-key who-are-u-api:latest
+          sleep 5
+          curl -f http://localhost:8000/health
+          docker stop who-are-u-api

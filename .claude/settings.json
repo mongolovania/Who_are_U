@@ -1,0 +1,84 @@
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "sk-eb1cee16550b42c19a3b8a57bb3f5925",
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/anthropic",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-v4-pro",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-v4-pro",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-v4-pro",
+    "ANTHROPIC_MODEL": "deepseek-v4-pro"
+  },
+  "includeCoAuthoredBy": false,
+  "permissions": {
+    "allow": [
+      "Bash(claude plugin install *)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "DEBUG=* npx --yes @modelcontextprotocol/server-memory --memory-path \"C:\\Users\\mhc\\.claude-memory\" --version 2>&1 | head -10",
+            "statusMessage": "Verifying claude-mem MCP server availability"
+          }
+        ]
+      },
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_breath.py\"",
+            "timeout": 12,
+            "statusMessage": "Ombre Brain 正在浮现记忆..."
+          }
+        ]
+      },
+      {
+        "matcher": "resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_breath.py\"",
+            "timeout": 12,
+            "statusMessage": "Ombre Brain 正在浮现记忆..."
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "everything-claude-code@everything-claude-code": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "claude-mem@thedotmack": true
+  },
+  "extraKnownMarketplaces": {
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
+      }
+    },
+    "pm-skills": {
+      "source": {
+        "source": "github",
+        "repo": "deanpeters/Product-Manager-Skills"
+      }
+    },
+    "everything-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "affaan-m/everything-claude-code"
+      }
+    },
+    "thedotmack": {
+      "source": {
+        "source": "github",
+        "repo": "thedotmack/claude-mem"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true
+}

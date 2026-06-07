@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  server:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_BASE_URL=${AI_BASE_URL:-https://api.deepseek.com/anthropic}
+      - AI_MODEL=${AI_MODEL:-deepseek-v4-pro}
+      - APP_STORE_SHARED_SECRET=${APP_STORE_SHARED_SECRET}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
