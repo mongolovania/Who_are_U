@@ -11,7 +11,7 @@ import '../../../shared/models/user.dart';
 /// user_profile 是单行表 (id=1)，设备即用户。
 class PersonaRepository {
   final AppDatabase _db;
-  final Logger _logger = Logger('PersonaRepository');
+  final Logger _logger = Logger();
 
   PersonaRepository({required AppDatabase db}) : _db = db;
 

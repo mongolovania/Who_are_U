@@ -84,7 +84,7 @@ class _TraitBubbleState extends State<TraitBubble>
     // 大小根据 score 和 rank
     // rank 0 (最高分): ~170px, rank 1: ~150px, rank 2: ~130px
     final baseSize = 180.0 - widget.rank * 30;
-    final size = max(120, baseSize * (0.7 + widget.trait.score * 0.3));
+    final size = max(120.0, baseSize * (0.7 + widget.trait.score * 0.3));
 
     return AnimatedBuilder(
       animation: _controller,

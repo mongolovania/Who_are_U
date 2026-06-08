@@ -4,7 +4,6 @@ import 'package:logger/logger.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqlcipher_flutter_libs/sqlcipher_flutter_libs.dart';
 
 import 'secure_store.dart';
 
@@ -28,7 +27,7 @@ class AppDatabase {
   final SecureStore _secureStore;
 
   Database? _db;
-  final Logger _logger = Logger('AppDatabase');
+  final Logger _logger = Logger();
 
   /// 创建数据库管理器
   ///
@@ -43,22 +42,29 @@ class AppDatabase {
   }
 
   /// 初始化数据库连接，创建表结构，执行迁移
+  ///
+  /// SQLCipher 密钥通过 [onConfigure] 在 `openDatabase` 内部、
+  /// `onCreate`/`onUpgrade` 之前设置，确保表结构和数据始终加密。
   Future<void> initialize() async {
     final docsDir = await getApplicationDocumentsDirectory();
     final dbPath = p.join(docsDir.path, _dbName);
 
     _logger.i('数据库路径: $dbPath');
 
+    // 提前获取密钥以传入 onConfigure 闭包
+    final encryptionKey = await _secureStore.getEncryptionKey();
+
     _db = await openDatabase(
       dbPath,
       version: _dbVersion,
+      onConfigure: (db) async {
+        // SQLCipher: 必须在 onCreate/onUpgrade 之前设置密钥，
+        // 否则新库的表会在无加密状态下创建。
+        await db.execute("PRAGMA key = '$encryptionKey'");
+      },
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
-
-    // 启用 SQLCipher 加密
-    final encryptionKey = await _secureStore.getEncryptionKey();
-    await _db!.rawQuery("PRAGMA key = '$encryptionKey'");
 
     _logger.i('数据库初始化完成（已加密）');
   }

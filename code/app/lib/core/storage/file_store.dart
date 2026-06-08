@@ -20,7 +20,7 @@ import 'package:path_provider/path_provider.dart';
 ///   report_abc123.enc    # 加密决策报告
 /// ```
 class FileStore {
-  final Logger _logger = Logger('FileStore');
+  final Logger _logger = Logger();
 
   late final Directory _conversationsDir;
   late final Directory _reportsDir;

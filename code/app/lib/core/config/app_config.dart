@@ -21,6 +21,10 @@ class AppConfig {
     required this.maxConversationMinutes,
   });
 
+  /// 编译时常量，用于在 AppConfig 实例创建前判断调试模式
+  static bool get isDebugMode =>
+      const bool.fromEnvironment('IS_DEBUG', defaultValue: true);
+
   /// 从环境加载配置
   factory AppConfig.load() {
     // TODO: 从 .env 文件或编译时常量读取

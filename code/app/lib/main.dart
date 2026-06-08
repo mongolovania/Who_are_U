@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 
 import 'app.dart';
 import 'core/config/app_config.dart';
-import 'core/error/error_handler.dart';
+
 import 'core/storage/database.dart';
 import 'core/storage/secure_store.dart';
 
@@ -21,7 +21,7 @@ import 'core/storage/secure_store.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final logger = Logger(level: AppConfig.isDebug ? Level.debug : Level.info);
+  final logger = Logger(level: AppConfig.isDebugMode ? Level.debug : Level.info);
 
   try {
     // 1. 初始化安全存储

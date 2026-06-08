@@ -12,7 +12,7 @@ import 'test_state.dart';
 /// - 上/下题切换 (next/previous)
 /// - 自动计算 (第 10 题选完后调用 ScoringEngine)
 class TestCubit extends Cubit<TestState> {
-  final Logger _logger = Logger('TestCubit');
+  final Logger _logger = Logger();
 
   TestCubit() : super(TestState(questions: testQuestions));
 

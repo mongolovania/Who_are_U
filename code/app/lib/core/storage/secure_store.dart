@@ -18,7 +18,7 @@ class SecureStore {
   static const _backupKey = 'backup_encryption_key';
 
   late final FlutterSecureStorage _storage;
-  final Logger _logger = Logger('SecureStore');
+  final Logger _logger = Logger();
 
   /// 初始化安全存储
   Future<void> initialize() async {

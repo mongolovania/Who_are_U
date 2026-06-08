@@ -13,7 +13,7 @@ linter:
     - cancel_subscriptions
     - close_sinks
     - directives_ordering
-    - literal_only_expression_types
+
     - no_adjacent_strings_in_list
     - prefer_const_constructors
     - prefer_const_declarations

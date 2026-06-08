@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/config/app_config.dart';
-import 'core/config/theme_config.dart';
+
 import 'core/router/app_router.dart';
 import 'shared/theme/app_theme.dart';
 

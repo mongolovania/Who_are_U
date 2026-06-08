@@ -86,15 +86,7 @@ void main() {
         cubit.jumpTo(9); // 回到最后一题
         cubit.next(); // 触发计算
       },
-      expect: () => [
-        // 跳转到 0
-        predicate<TestState>((s) => s.currentIndex == 0),
-        // 选择 Q0
-        predicate<TestState>((s) => s.answers[0] == 4),
-        // 跳转到 1-8（略），最终 done
-        predicate<TestState>((s) => s.status == TestStatus.done),
-      ],
-      // 由于 jumpTo+selectAnswer 产生很多状态，我们只验证最终状态
+      // jumpTo + selectAnswer 产生大量中间状态，仅验证最终状态
       verify: (cubit) {
         final state = cubit.state;
         expect(state.status, equals(TestStatus.done));

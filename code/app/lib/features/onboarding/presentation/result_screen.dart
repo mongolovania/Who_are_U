@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../shared/theme/app_colors.dart';
-import '../../models/test_result.dart';
+import 'package:who_are_u/core/storage/database.dart';
+import 'package:who_are_u/features/onboarding/data/persona_repository.dart';
+import 'package:who_are_u/features/onboarding/models/test_result.dart';
+import 'package:who_are_u/shared/models/user.dart';
+import 'package:who_are_u/shared/theme/app_colors.dart';
+
 import 'widgets/trait_bubble.dart';
 
 /// 特质泡泡结果展示
@@ -96,10 +101,14 @@ class TestResultScreen extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // 保存画像后跳转到山脉
-                      // TODO Sprint 5: 调用 PersonaRepository.save
-                      context.go('/mountain');
+                    onPressed: () async {
+                      // 持久化用户画像
+                      final db = context.read<AppDatabase>();
+                      final repo = PersonaRepository(db: db);
+                      await repo.saveTraits(traits);
+                      if (context.mounted) {
+                        context.go('/mountain');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primary,
