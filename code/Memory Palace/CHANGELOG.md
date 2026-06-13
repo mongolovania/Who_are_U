@@ -1,5 +1,23 @@
 # Memory Palace Changelog
 
+## v9.0.1 (2026-06-13)
+
+### Changed
+- **P0: app.py production wiring** — `_make_orchestrator()` injects all 22 optional modules (DDA+graph+L2+Track C+v7 causal), replacing downgraded `get_orchestrator()` (WBS 2.8.1)
+- **api_router.py** — updated import/call sites: `get_orchestrator` → `_make_orchestrator`
+- **VERSION** — 9.0.0 → 9.0.1
+
+### Fixed
+- **app.py `user_id` bug**: `get_orchestrator()` was not passing `user_id` to `MemoryOrchestrator` constructor
+- **DDAController instantiation**: uses correct `stats_dir` parameter (not `data_dir` as in mcp_server.py latent bug)
+- **MemoryGraph instantiation**: uses correct `db_dir` parameter (not `data_dir` as in mcp_server.py latent bug)
+
+### Architecture
+- REST API path now uses same fully-wired orchestrator as MCP stdio path — unified production wiring
+- Zero MP internal logic changes — all modules already accepted as optional params with graceful None fallback
+
+---
+
 ## v9.0.0 (2026-06-10)
 
 ### Added

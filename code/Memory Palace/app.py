@@ -197,7 +197,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Memory Palace",
     description="Cognitive Narrative Memory Engine for 你谁啊",
-    version="9.0.0",
+    version="9.0.1",
     lifespan=lifespan,
 )
 
