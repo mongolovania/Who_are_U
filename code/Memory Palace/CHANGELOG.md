@@ -1,11 +1,11 @@
 # Memory Palace Changelog
 
-## v9.0.1 (2026-06-13)
+## v0.9.1 (2026-06-13)
 
 ### Changed
 - **P0: app.py production wiring** — `_make_orchestrator()` injects all 22 optional modules (DDA+graph+L2+Track C+v7 causal), replacing downgraded `get_orchestrator()` (WBS 2.8.1)
 - **api_router.py** — updated import/call sites: `get_orchestrator` → `_make_orchestrator`
-- **VERSION** — 9.0.0 → 9.0.1
+- **VERSION** — 0.9.0 → 0.9.1
 
 ### Fixed
 - **app.py `user_id` bug**: `get_orchestrator()` was not passing `user_id` to `MemoryOrchestrator` constructor
@@ -18,7 +18,7 @@
 
 ---
 
-## v9.0.0 (2026-06-10)
+## v0.9.0 (2026-06-10)
 
 ### Added
 - **COLD `cold_fusion` retrieval**: New 3-path light fusion for COLD/WARM levels — BM25 (50%) + Emotion (25%) + Temporal (25%)
@@ -44,7 +44,7 @@
 
 ---
 
-## v8 (2026-06-08)
+## v0.8.0 (2026-06-08)
 
 - Temporal + cross_ref retrieval paths activated
 - BM25 keyword search upgraded from fuzzy to rank_bm25
@@ -54,14 +54,14 @@
 - Two-phase retrieval-ranking decoupling (Fix 5)
 - Path discrimination auto-silencing (Fix 2)
 
-## v7 (2026-06-06)
+## v0.7.0 (2026-06-06)
 
 - Causal + Narrative Enhancement modules
 - Content-preserving fusion (P0-1)
 - Emotion resonance path (P0-2)
 - Typed graph traversal (P0-3)
 
-## v6 (2026-06-01)
+## v0.6.0 (2026-06-01)
 
 - Initial Memory Palace complete delivery (24 modules, ~25,000 lines)
 - DDA-adaptive retrieval (COLD/WARM/HOT/RICH)

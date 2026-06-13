@@ -51,8 +51,8 @@ S1✅ S2🔜  S3     S4     S5      S6     S7     S8    S9     S10+
 - [x] **CI/CD**：GitHub Actions + Codemagic 双流水线就绪
 
 ### Sprint 3: 陪伴对话引擎 + 决策智囊 — Week 5-8（核心瓶颈·4周）🔜
-- [x] ✅ **Memory Palace v9 完整版 已交付**（24模块·L0/L1/L2/L3全层+Track C SOTA增强+v9·~25,000行·27测试·详见偏差分析报告）
-- [x] ✅ **Memory Palace v9.0.0 检索引擎修复**（5 Fix·Benchmark驱动·MP #1/8·862 tests green·详见[记忆宫殿详细设计 §7.6](记忆宫殿详细设计.md)）
+- [x] ✅ **Memory Palace v0.9.0 完整版 已交付**（24模块·L0/L1/L2/L3全层+Track C SOTA增强+v0.9.0·~25,000行·27测试·详见偏差分析报告）
+- [x] ✅ **Memory Palace v0.9.0 检索引擎修复**（5 Fix·Benchmark驱动·MP #1/8·862 tests green·详见[记忆宫殿详细设计 §7.6](记忆宫殿详细设计.md)）
 - [x] ✅ **24原型数据模型**（Archetype + ArchetypeRegistry + 6 trait 映射·含 8 tests）
 - [x] ✅ **大师选择引擎**（SelectionEngine + DecisionService·24×50匹配·top 7）
 - [ ] 实现 50 大师 JSON 数据库（4领域 × 12-13位 × 方法论+金句+使用指南）
@@ -68,7 +68,7 @@ S1✅ S2🔜  S3     S4     S5      S6     S7     S8    S9     S10+
 - [ ] 实现离线降级提示
 - [ ] **实现会员权限检查（3天免费试用后触发付费墙）**
 
-> ⚠️ **架构边界（2026-06-13）**：Memory Palace v9.0.0 = 记忆引擎·六维跑分均第一·862 tests green。**禁止修改 MP 内部检索/存储/推理逻辑**。画像演化改进全部在 Flutter/Dart 侧——通过 MP API 调用已有信号。
+> ⚠️ **架构边界（2026-06-13）**：Memory Palace v0.9.0 = 记忆引擎·六维跑分均第一·862 tests green。**禁止修改 MP 内部检索/存储/推理逻辑**。画像演化改进全部在 Flutter/Dart 侧——通过 MP API 调用已有信号。
 
 ### Sprint 4: 我之山 + 月付订阅 — Week 9-11（3周）
 
@@ -241,7 +241,7 @@ S1✅ S2🔜  S3     S4     S5      S6     S7     S8    S9     S10+
 | 里程碑 | 时间 | 交付物 | 状态 |
 |--------|------|--------|------|
 | **M0** | Week 2 | 脚手架完成 | ✅ |
-| **M1** | Week 6 | Memory Palace v9 底座就绪 → 对话引擎 → 报告 | 🔜 |
+| **M1** | Week 6 | Memory Palace v0.9.0 底座就绪 → 对话引擎 → 报告 | 🔜 |
 | **M2** | Week 8 | 免费试用闭环 — 2次免费对话后触发付费墙 | ⬜ |
 | **M3** | Week 11 | 订阅商业闭环 — 我之山 + 月付订阅 + 基础称号外观 | ⬜ |
 | **M4** | Week 13 | 🚀 MVP v1 App Store 提交审核 | ⬜ |
@@ -259,7 +259,7 @@ _（无）_
 
 ## 技术债务
 
-- [ ] **app.py 生产连线**：`get_orchestrator()` 未注入 v9 增强模块（DDA+graph+L2+Track C），API 使用 basic fallback
+- [ ] **app.py 生产连线**：`get_orchestrator()` 未注入 v0.9.0 增强模块（DDA+graph+L2+Track C），API 使用 basic fallback
 - [ ] **Prompt 缓存**：静态系统 Prompt 缓存未实现（设计目标节省 30-50% 输入 token）
 - [ ] **流式 SSE 端点**：LLMGateway.chat_stream() 存在，api_router 未暴露
 - [ ] **对话压缩器**：ConversationCompressor 类未创建
@@ -277,7 +277,7 @@ _（无）_
 - [x] 数据驻留 — 4 区域部署（eu/cn/us/sg）
 - [x] 用户画像 — 24原型系统（4阵营×6）+ 6 trait兼容映射
 - [x] 决策智囊 — 50大师蒸馏引擎 + 选择引擎
-- [x] 记忆引擎 — Memory Palace v9 完整版·v1 已交付（17专家6轮辩论定版·24模块·Track C增强）
+- [x] 记忆引擎 — Memory Palace v0.9.0 完整版·v1 已交付（17专家6轮辩论定版·24模块·Track C增强）
 - [x] 交互架构 — 我之山3D主场景 + 对话页面 + 装扮页面
 - [ ] Spine vs Rive 动画引擎选择（Phase 3 决策）
 - [ ] 3D 渲染方案选择（Flutter 3D/Unity嵌入/Rive/CustomPainter）（Sprint 4 前决策）
@@ -297,4 +297,4 @@ _（无）_
 
 ---
 
-_最后更新：2026-06-10（Memory Palace v9 完整版 ✅·v9.0.0 检索引擎修复 ✅·5 Fix·MP #1/8·862 tests green·偏差分析+技术方案同步完成）_
+_最后更新：2026-06-10（Memory Palace v0.9.0 完整版 ✅·v0.9.0 检索引擎修复 ✅·5 Fix·MP #1/8·862 tests green·偏差分析+技术方案同步完成）_

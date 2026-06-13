@@ -879,7 +879,7 @@ class TestMemoryPalaceFullRanking:
         report_lines = []
         report_lines.append("")
         report_lines.append("=" * 72)
-        report_lines.append("  Memory Palace v6.1 — REAL RetrievalEngine Benchmark")
+        report_lines.append("  Memory Palace v0.6.1 — REAL RetrievalEngine Benchmark")
         report_lines.append("  真实检索引擎基准测试报告")
         report_lines.append("=" * 72)
         report_lines.append(f"  Date: {__import__('datetime').datetime.now().isoformat()}")

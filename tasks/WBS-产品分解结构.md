@@ -1,6 +1,6 @@
 # 你谁啊 (Who Are U) — 产品工作分解结构 (WBS) v3
 
-> 生成日期：2026-06-06 · v2 更新：商业模式 pivot 为月付订阅制 · v3 更新：四位一体架构（账户+隐私+同步+智能）· v4 更新：总体技术方案整合（¥35/月+¥299/年·24原型+大师引擎·Memory Palace v9·五层架构）
+> 生成日期：2026-06-06 · v2 更新：商业模式 pivot 为月付订阅制 · v3 更新：四位一体架构（账户+隐私+同步+智能）· v4 更新：总体技术方案整合（¥35/月+¥299/年·24原型+大师引擎·Memory Palace v0.9.0·五层架构）
 > 基于：[你谁啊_需求设计与商业计划书](E:\98-桌面\02-研究\03-基于用户画像的决策支持app\你谁啊_需求设计与商业计划书-14648f1feb.md)
 > 架构依据：[架构设计-账户隐私同步智能.md](架构设计-账户隐私同步智能.md)
 > 对应工程跟踪：[tasks/todo.md](todo.md)
@@ -53,7 +53,7 @@ MVP v1 (14w·底座框架+可见层)      MVP v2 (+9w·基础设施+完善)    P
 ─────────────────────────────────────────────────────────────────────→
 Week 1──────────14              Week 15─────────────23           Week 24+
                                                                        
-✅ Memory Palace v9 框架        ✅ 账户系统+E2E同步             称号/外观/记忆
+✅ Memory Palace v0.9.0 框架        ✅ 账户系统+E2E同步             称号/外观/记忆
 ✅ 决策智囊框架(24原型+50大师)   ✅ Memory Palace 完整版(Ombre)  独影动画/副峰
 ✅ LLM Gateway(路由+缓存+SSE)   ✅ 决策智囊完整版(5阶段+报告)    Android适配
 ✅ 我之山+基础对话+订阅         ✅ 匿名聚合引擎(称号%)          运营后台
@@ -175,21 +175,21 @@ Week 1──────────14              Week 15───────
 
 > ⚠️ **Sprint 2 遗留**：3D渲染方案 Spike 未在 Sprint 2 完成，需在 Sprint 3 补偿执行。决策需在 Sprint 4（我之山）开始前确定。
 
-#### 2.3 底座框架 — Memory Palace v9 + 决策智囊 + LLM Gateway 🔜 Sprint 3（Week 5-8·核心技术突破·4w）
+#### 2.3 底座框架 — Memory Palace v0.9.0 + 决策智囊 + LLM Gateway 🔜 Sprint 3（Week 5-8·核心技术突破·4w）
 
 > ⚠️ **v5 底座定义**：Memory Palace 记忆引擎框架 + 决策智囊引擎 + LLM Gateway = 项目的关键技术突破，构成底座。先搭建代码框架和 API 契约，对话引擎和我之山在底座之上集成。
 
 | WBS | 工作包 | 描述 | 估时 | 状态 |
 |-----|--------|------|------|------|
-| **2.3.1** | **Memory Palace v9 完整版** | **24模块·L0/L1/L2/L3全层+Track C+v9·~25,000行·27测试文件·✅ v9.0.0修复** | — | ✅ 已完成 |
+| **2.3.1** | **Memory Palace v0.9.0 完整版** | **24模块·L0/L1/L2/L3全层+Track C+v0.9.0·~25,000行·27测试文件·✅ v0.9.0修复** | — | ✅ 已完成 |
 | | dda_controller | DDI计算+四级策略+per-user stats (348行) | — | ✅ |
 | | cold_start + global_prior | 冷启动策略+LLM知识先验 (178+216行) | — | ✅ |
 | | bucket_manager + decay_engine + embedding_engine | L1存储层完整 (782+398+279行) | — | ✅ |
 | | memory_graph | SQLite时序图+4类typed edges+边过期+BFS (412行) | — | ✅ |
 | | L2 梳理层 (6模块) | working_self+importance_fusion+vulnerability+script_deviation+flashbulb+retrieval | — | ✅ |
-| | memory_orchestrator | 完整v6同步/异步管道+v9 sleeptime集成 (848行) | — | ✅ |
+| | memory_orchestrator | 完整v0.6.0同步/异步管道+v0.9.0 sleeptime集成 (848行) | — | ✅ |
 | | Track C 增强 (4模块) | narrative_engine+graph_rag+hippo_rag+procedural_memory+learnable_weights | — | ✅ |
-| | v9 高级模块 (2模块) | memory_evolution+sleeptime_compute | — | ✅ |
+| | v0.9.0 高级模块 (2模块) | memory_evolution+sleeptime_compute | — | ✅ |
 | | 基础设施 | llm_gateway+auth_service+namespace_manager+mcp_server+api_router | — | ✅ |
 | **2.3.2** | **24原型系统** | | 2d | 🟡 部分完成 |
 | | Archetype 模型 | 24原型定义·4阵营×6·emoji·驱动力·一句话 | 1d | ✅ |
@@ -204,11 +204,11 @@ Week 1──────────14              Week 15───────
 | 2.3.5 | 5阶段提示词模板 | 共情→自扫→拆解→确认→输出 + 大师注入（阶段3-4） | 2d | ⬜ |
 | **2.3.6** | **缓冲/集成测试** | **端到端流程验证·对话质量人工评测·底座框架集成验证** | **3d** | **⬜** |
 
-> **底座框架交付标准（M2）**：Memory Palace v9 ✅ 已交付·24原型可从 trait 选择 ✅·50大师选择引擎可输出 top 7 ✅·LLM Gateway 路由/缓存/SSE 可用 🔜。
+> **底座框架交付标准（M2）**：Memory Palace v0.9.0 ✅ 已交付·24原型可从 trait 选择 ✅·50大师选择引擎可输出 top 7 ✅·LLM Gateway 路由/缓存/SSE 可用 🔜。
 
-> **⚠️ 架构边界（2026-06-13 确立）**：Memory Palace v9.0.0 = 记忆引擎（存储·检索·推理），**不承担画像职责**。MP 六维跑分均第一（862 tests green·Benchmark #1 47/75），**禁止修改 MP 内部检索/存储/推理逻辑**。画像系统的改进全部在 Flutter/Dart 侧完成——通过 API 调用 MP 已有信号（valence/arousal·脆弱性指数·脚本偏离标记），不改 MP 一行代码。
+> **⚠️ 架构边界（2026-06-13 确立）**：Memory Palace v0.9.0 = 记忆引擎（存储·检索·推理），**不承担画像职责**。MP 六维跑分均第一（862 tests green·Benchmark #1 47/75），**禁止修改 MP 内部检索/存储/推理逻辑**。画像系统的改进全部在 Flutter/Dart 侧完成——通过 API 调用 MP 已有信号（valence/arousal·脆弱性指数·脚本偏离标记），不改 MP 一行代码。
 
-> **推迟至MVP v2的内容**：决策智囊完整版（5阶段完整实现·A/B测试·大师交叉验证）·Memory Palace 生产连线（app.py注入v6模块·Flutter对话耦合·E2E同步集成·流式SSE·Prompt缓存）。MP v9 核心引擎已超额交付，v2 聚焦生产集成而非补全模块。— 详见 [Sprint 9](#wbs-28--memory-palace-完整版--决策智囊完整版p0mvp-v22w)
+> **推迟至MVP v2的内容**：决策智囊完整版（5阶段完整实现·A/B测试·大师交叉验证）·Memory Palace 生产连线（app.py注入v0.6.0模块·Flutter对话耦合·E2E同步集成·流式SSE·Prompt缓存）。MP v0.9.0 核心引擎已超额交付，v2 聚焦生产集成而非补全模块。— 详见 [Sprint 9](#wbs-28--memory-palace-完整版--决策智囊完整版p0mvp-v22w)
 
 #### 2.4 我之山核心视图 🔜 Sprint 5a（Week 11-12）
 
@@ -284,12 +284,12 @@ Week 1──────────14              Week 15───────
 
 ### WBS 2.8 — Memory Palace 生产集成 + 决策智囊完整版（P0·MVP v2 Sprint 9·+2w）
 
-> ⚠️ **2026-06-10 更新**：v1 底座框架已交付完整的 Memory Palace v9 + Track C SOTA 增强（24模块·~25,000行）。v2 的 MP 工作从"补全 L2 模块"重新聚焦为 **生产连线 + Flutter 对话耦合 + E2E 同步集成**。
+> ⚠️ **2026-06-10 更新**：v1 底座框架已交付完整的 Memory Palace v0.9.0 + Track C SOTA 增强（24模块·~25,000行）。v2 的 MP 工作从"补全 L2 模块"重新聚焦为 **生产连线 + Flutter 对话耦合 + E2E 同步集成**。
 
 | WBS | 工作包 | 描述 | 估时 | 状态 |
 |-----|--------|------|------|------|
 | **2.8.1** | **Memory Palace 生产集成** | app.py 连线 + Flutter对话耦合 + E2E同步 | 4d | ⬜ |
-| | app.py 生产连线 | 工厂函数注入完整 v9 模块（DDA+graph+L2+Track C） | 1d | ⬜ |
+| | app.py 生产连线 | 工厂函数注入完整 v0.9.0 模块（DDA+graph+L2+Track C） | 1d | ⬜ |
 | | breath/hold/dream 对话耦合 | 与 Flutter ConversationEngine 深度集成 | 1.5d | ⬜ |
 | | 多用户命名空间+E2E同步 | user_id → 独立 buckets/ + E2E 加密同步 | 1d | ⬜ |
 | | 流式SSE端点 + Prompt缓存 | API暴露streaming·静态Prompt缓存节省30-50% token | 0.5d | ⬜ |
@@ -426,8 +426,8 @@ S1✅ S2✅  S3🔜   S4     S5      S6     S7     S8    S9     S10+
 3. ✅ 特质泡泡展示 + 画像存储
 4. ⬜ **🎯 3D渲染方案Spike（2天）** — CustomPainter vs Flutter Scene原型·**遗留至 Sprint 3 补偿**
 
-### Sprint 3: 🧠 底座框架 — Memory Palace v9 ✅ + 决策智囊 + LLM Gateway — Week 5-8（核心技术突破·4w）
-1. ✅ **Memory Palace v9 完整版**：24模块·L0/L1/L2/L3全层+Track C增强+v9高级模块·~25,000行·27测试文件
+### Sprint 3: 🧠 底座框架 — Memory Palace v0.9.0 ✅ + 决策智囊 + LLM Gateway — Week 5-8（核心技术突破·4w）
+1. ✅ **Memory Palace v0.9.0 完整版**：24模块·L0/L1/L2/L3全层+Track C增强+v0.9.0高级模块·~25,000行·27测试文件
 2. **24原型系统**：Archetype模型·6 Trait映射·ArchetypeRegistry
 3. **50大师蒸馏引擎**：大师库JSON·选择引擎·24×50匹配矩阵→top 7
 4. **LLM Gateway**：DeepSeek-V3+Gemini路由·熔断器·重试·Token计数·成本追踪·⚠️Prompt缓存推迟v2
@@ -513,7 +513,7 @@ S1✅ S2✅  S3🔜   S4     S5      S6     S7     S8    S9     S10+
 
 > ⚠️ **v5 变更（vs v4·纠正）**：
 > - **底座定义纠正**：底座 = 关键技术突破的代码框架（Memory Palace+决策智囊+LLM Gateway），不是账户/同步基础设施
-> - Memory Palace v9 框架 + 决策智囊框架保持在 v1 Sprint 3（它们就是底座核心）
+> - Memory Palace v0.9.0 框架 + 决策智囊框架保持在 v1 Sprint 3（它们就是底座核心）
 > - 账户+E2E同步保持在 v2（它们是基础设施层，不耦合核心技术突破）
 > - Sprint 3 命名改为「底座框架」（替代「对话引擎」），聚焦技术框架搭建
 > - 总估时保持14w（v1）+9w（v2）=23w不变
@@ -525,7 +525,7 @@ S1✅ S2✅  S3🔜   S4     S5      S6     S7     S8    S9     S10+
 ```
 M0 (Week 2)  ✅ 脚手架完成
 M1 (Week 4)  ✅ 用户画像完成·⚠️ 3D渲染方案待定 — 10题测试可用·3D Spike 遗留至 S3
-M2 (Week 8)  🧠 底座框架就绪 — Memory Palace v9 ✅·决策智囊(24原型+50大师 🔜)·LLM Gateway 🔜
+M2 (Week 8)  🧠 底座框架就绪 — Memory Palace v0.9.0 ✅·决策智囊(24原型+50大师 🔜)·LLM Gateway 🔜
 M3 (Week 11) 💬 对话引擎集成 — 端到端对话闭环·闲聊+决策模式·底座框架集成验证
 M4 (Week 12) 🏔️ 我之山+订阅 — 山体渲染·迷雾·节点·付费墙闭环
 M5 (Week 14) 🚀 MVP v1 App Store 提交审核（底座框架+用户可见层）
@@ -555,11 +555,11 @@ M10 (Week 45+) 🚀 Phase 2+ 完整产品上线（含 Android+运营后台）
 | 匿名用户 ID | 不实现 | 单设备本地存储，设备即用户 | 2026-06-06 |
 | 用户画像 | 24原型（4阵营×6）+ 6 trait兼容 | MBTI辨识度 + 世界观统一 | 2026-06-08 |
 | 决策智囊 | 50大师蒸馏引擎 + 选择引擎 | JSON驱动·热加载·可扩展 | 2026-06-08 |
-| 记忆引擎 | Memory Palace v9·统一底座 | 17专家6轮辩论定版·零跨用户数据流 | 2026-06-08 |
+| 记忆引擎 | Memory Palace v0.9.0·统一底座 | 17专家6轮辩论定版·零跨用户数据流 | 2026-06-08 |
 | 交互架构 | 我之山3D主场景 + 对话 + 装扮 | 空间导航·按钮极少·转场动画 | 2026-06-08 |
 | 主 LLM | DeepSeek-V3（默认）·GPT-4o（可选） | 性价比最优·中文能力 | 2026-06-08 |
 | LLM路由策略 | 意图复杂度分级 + Prompt缓存 + 成本告警 | 降本30-50% + 防超支 | 2026-06-09 |
-| ~~Memory v1降级~~ → **Memory v9 超额交付** | ~~L1存储+L3编排·L0固定WARM·L2推迟v2~~ → 实际交付 Memory Palace v9 完整版（24模块·L0-L3全层+Track C+v9·~25,000行） | 原计划降级·实际超额交付完整版 | 2026-06-09 → 2026-06-10 更正 |
+| ~~Memory v1降级~~ → **Memory v0.9.0 超额交付** | ~~L1存储+L3编排·L0固定WARM·L2推迟v2~~ → 实际交付 Memory Palace v0.9.0 完整版（24模块·L0-L3全层+Track C+v0.9.0·~25,000行） | 原计划降级·实际超额交付完整版 | 2026-06-09 → 2026-06-10 更正 |
 | 3D渲染方案决策时机 | Sprint 2末 Spike → Sprint 3前确定 | 降低Sprint 4风险 | 2026-06-09 |
 | MVP v1估时 | 13w → 14w（+3D Spike + Memory v1集成 + 缓冲） | 反映实际工作量 | 2026-06-09 |
 | **交付优先级** | **底座框架优先（Memory Palace+决策智囊+LLM Gateway框架 → 对话引擎集成 → 可见层）** | **关键技术突破先行·框架即约束·对话引擎在底座之上集成** | **2026-06-09** |
@@ -573,12 +573,12 @@ M10 (Week 45+) 🚀 Phase 2+ 完整产品上线（含 Android+运营后台）
 | ID | 风险 | 对WBS的影响 | 缓解 |
 |----|------|-----------|------|
 | T1 | 3D渲染方案选型失败 | Sprint 4延期·我之山降级为2D | S2末Spike验证·CustomPainter为降级方案 |
-| T2 | ~~Memory Palace v9过度设计~~ → 风险已消除 | ~~Sprint 3周期失控~~ → 未发生·v6完整版24模块在Sprint 2-3期间交付 | ~~v1仅L1+L3~~ → 实际交付完整版·风险已消除 |
+| T2 | ~~Memory Palace v0.9.0过度设计~~ → 风险已消除 | ~~Sprint 3周期失控~~ → 未发生·v0.6.0完整版24模块在Sprint 2-3期间交付 | ~~v1仅L1+L3~~ → 实际交付完整版·风险已消除 |
 | E1 | Sprint 3引擎估时不足 | 连锁延期至S4-S5 | 4w含1w缓冲·优先闲聊模式 |
 | P4 | 陪伴角色形态未定义 | 返工·品牌不一致 | S3前确定形态 |
 
 ---
 
-*本文档 v7 反映 2026-06-12 实际进度：Sprint 1-2 已完成（脚手架✅·用户画像✅·10题测试✅·特质泡泡✅·加密存储✅·CI/CD✅·Bug修复✅·Analyzer清零✅）·Memory Palace v9 完整版超额交付（24模块·~25,000行·全层L0-L3+Track C+v9·远超原v1降级方案）。3D渲染方案 Spike 遗留至 Sprint 3 补偿。Sprint 3 底座框架剩余工作（24原型+50大师+LLM Gateway完善+5阶段提示词模板+集成测试）进行中。详见 [记忆系统-实现vs方案-偏差分析.md](记忆系统-实现vs方案-偏差分析.md)。*
+*本文档 v7 反映 2026-06-12 实际进度：Sprint 1-2 已完成（脚手架✅·用户画像✅·10题测试✅·特质泡泡✅·加密存储✅·CI/CD✅·Bug修复✅·Analyzer清零✅）·Memory Palace v0.9.0 完整版超额交付（24模块·~25,000行·全层L0-L3+Track C+v0.9.0·远超原v1降级方案）。3D渲染方案 Spike 遗留至 Sprint 3 补偿。Sprint 3 底座框架剩余工作（24原型+50大师+LLM Gateway完善+5阶段提示词模板+集成测试）进行中。详见 [记忆系统-实现vs方案-偏差分析.md](记忆系统-实现vs方案-偏差分析.md)。*
 *两阶段交付：MVP v1 (14w) 底座框架+用户可见层 → MVP v2 (+9w) 基础设施+完整版智能。*
 *下一步：完成 Sprint 3 底座框架剩余工作（24原型+50大师+LLM Gateway+5阶段提示词+集成测试），补偿 3D 渲染方案 Spike。*

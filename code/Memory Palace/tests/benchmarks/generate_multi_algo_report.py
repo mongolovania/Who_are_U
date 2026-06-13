@@ -902,7 +902,7 @@ async def main():
 
         # Cache results
         cache_data = {
-            "meta": {"version": "9.0.0", "qa_count": 25},
+            "meta": {"version": "0.9.0", "qa_count": 25},
             "medium_results": {
                 name: sr.to_dict() for name, sr in results_medium.items()
             },

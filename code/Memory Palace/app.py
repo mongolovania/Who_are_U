@@ -197,7 +197,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Memory Palace",
     description="Cognitive Narrative Memory Engine for 你谁啊",
-    version="9.0.1",
+    version="0.1.0",
     lifespan=lifespan,
 )
 
@@ -227,7 +227,7 @@ def get_current_user(request: Request) -> str:
 # ── Health check ────────────────────────────────────────
 @app.get("/health")
 async def health():
-    return {"status": "ok", "service": "memory_palace", "version": "9.0.0"}
+    return {"status": "ok", "service": "who_are_u", "version": "0.1.0", "mp_version": "0.9.1"}
 
 
 # ── Mount REST API router ───────────────────────────────

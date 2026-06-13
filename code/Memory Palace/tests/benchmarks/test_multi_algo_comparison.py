@@ -329,7 +329,7 @@ class TestMultiAlgoComparison:
 
         export: dict = {
             "meta": {
-                "version": "9.0.0",
+                "version": "0.9.0",
                 "qa_count": len(ALL_QA_PAIRS),
                 "categories": CATEGORY_MAP,
                 "category_counts": CATEGORY_QA_COUNTS,

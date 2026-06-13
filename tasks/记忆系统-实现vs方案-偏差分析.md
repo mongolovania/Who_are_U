@@ -41,9 +41,9 @@ v1 降级实现（设计）:
 - **L0 DDA**: 完整的 DDI 计算（7因子加权公式）+ per-user 统计持久化 + 会话日志 + COLD→WARM→HOT→RICH 四级策略矩阵 + 自动级别转换
 - **L1 存储**: 4 模块全部完整（含 typed edges、edge expiry、BFS 路径查找、时间涟漪）
 - **L2 梳理**: **全部 6 个 L2 模块完整实现**（设计说"推迟至 v2"）
-- **L3 编排**: 完整 v9 同步/异步双管道 v9 增强 + v9 增强（Sleeptime 5 阶段）
+- **L3 编排**: 完整 v0.9.0 同步/异步双管道 v0.9.0 增强 + v0.9.0 增强（Sleeptime 5 阶段）
 - **Track C 增强**: 4 个额外模块（GraphRAG, HippoRAG, Procedural Memory, Learnable Weights）
-- **v9 模块**: Memory Evolution, Sleeptime Compute, Narrative Engine
+- **v0.9.0 模块**: Memory Evolution, Sleeptime Compute, Narrative Engine
 - **基础设施**: Auth Service (JWT), Namespace Manager, MCP Server, LLM Gateway (熔断+重试+Token计数)
 
 ### 1.3 代码规模
@@ -127,7 +127,7 @@ v1 降级实现（设计）:
 
 **论证**：Track C 模块是检索增强的 SOTA 对标。它们通过 RetrievalEngine 的 8-path 融合框架统一接入——每个模块贡献一条检索路径，最终由 learnable_weights 动态调整各路径权重。这种架构允许渐进式地激活/停用路径而不影响其他路径。
 
-### 2.6 v9 高级模块（不在原始设计中）
+### 2.6 v0.9.0 高级模块（不在原始设计中）
 
 | 模块 | 功能 | 代码量 |
 |------|------|--------|
@@ -177,7 +177,7 @@ v1 降级实现（设计）:
 | **大师选择引擎** | 软件详细方案 §二·2.2 | ❌ 未实现 | MasterRegistry/MasterSelection 在 Dart 侧规划 |
 | **24原型系统** | 总体技术方案 §七 | ❌ 未实现 | Archetype/ArchetypeRegistry 在 Dart 侧规划 |
 | **5阶段提示词模板** | 总体技术方案 §七·3 | ⚠️ 部分 | 独影系统 Prompt 已定义，5阶段结构化模板未实现 |
-| **prod wiring** | app.py | ⚠️ 部分 | `get_orchestrator()` 未注入 v9 增强模块（DDA, graph, L2, Track C） |
+| **prod wiring** | app.py | ⚠️ 部分 | `get_orchestrator()` 未注入 v0.9.0 增强模块（DDA, graph, L2, Track C） |
 
 ### 4.1 关键缺口：app.py 生产环境未连线
 
@@ -192,7 +192,7 @@ def get_orchestrator(user_id: str) -> MemoryOrchestrator:
         dehydrator=dehydrator,
         embedding_engine=comps["embedding_engine"],
         llm_gateway=llm_gateway,
-        # ❌ 以下 v9 模块未注入：
+        # ❌ 以下 v0.9.0 模块未注入：
         # dda_controller, memory_graph, cold_start_policy, global_prior,
         # script_deviation, flashbulb_detector, vulnerability_model,
         # working_self, importance_fusion, retrieval_engine,
@@ -203,7 +203,7 @@ def get_orchestrator(user_id: str) -> MemoryOrchestrator:
 
 这意味着 REST API 生产路径使用的是 basic fallback 模式。所有 L0/L2/Track C 模块只在**测试中**被完整连线验证。
 
-**解决方案**：需更新 `app.py` 的工厂函数以注入完整的 v9 模块。此变更不影响现有 API 契约（orchestrator 内部 graceful degradation）。
+**解决方案**：需更新 `app.py` 的工厂函数以注入完整的 v0.9.0 模块。此变更不影响现有 API 契约（orchestrator 内部 graceful degradation）。
 
 ---
 
@@ -238,8 +238,8 @@ def get_orchestrator(user_id: str) -> MemoryOrchestrator:
 | 18 | hippo_rag | Track C | ✅ 完整 | 652 | 317 |
 | 19 | procedural_memory | Track C | ✅ 完整 | 851 | 317 |
 | 20 | learnable_weights | Track C | ✅ 完整 | 513 | 358 |
-| 21 | memory_evolution | v9 Track A | ✅ 完整 | 794 | 417 |
-| 22 | sleeptime_compute | v9 Track A | ✅ 完整 | 628 | 480 |
+| 21 | memory_evolution | v0.9.0 Track A | ✅ 完整 | 794 | 417 |
+| 22 | sleeptime_compute | v0.9.0 Track A | ✅ 完整 | 628 | 480 |
 | 23 | llm_gateway | 基础设施 | ✅ 完整 | 367 | — |
 | 24 | auth_service | 基础设施 | ✅ 完整 | 141 | — |
 
@@ -252,28 +252,28 @@ def get_orchestrator(user_id: str) -> MemoryOrchestrator:
 ### 6.1 记忆宫殿详细设计.md
 
 1. **§七 15模块清单** → 更新为 24 模块清单，所有模块状态改为 ✅
-2. **§九 v1 最小实现范围** → 删除（v1 实际交付了完整 v9 + Track C 增强）
+2. **§九 v1 最小实现范围** → 删除（v1 实际交付了完整 v0.9.0 + Track C 增强）
 3. **新增 §十：Retrieval Engine 8-path 融合架构**
 4. **新增 §十一：Track C 增强（对标 2025 SOTA）**
 5. **更新架构总览图**：反映 L0/L1/L2/L3 均为完整实现
 
 ### 6.2 总体技术方案.md
 
-1. **§六·5 v1→v9 降级路径** → 更新为"v1 实际交付了完整 v9 功能"
+1. **§六·5 v1→v0.9.0 降级路径** → 更新为"v1 实际交付了完整 v0.9.0 功能"
 2. **§六·5 v1 模块表** → 全部改为 ✅ 完整
-3. **Sprint 3 范围** → 从"MPv1 框架"更新为"MP v9 完整版 + Track C 增强"
+3. **Sprint 3 范围** → 从"MPv1 框架"更新为"MP v0.9.0 完整版 + Track C 增强"
 4. **增加 prompt 缓存未实现的说明**
 5. **更新架构图**：Layer 3 认知层四层子架构全部标注为"v1 已交付"
 
 ### 6.3 WBS-产品分解结构.md
 
-1. **Sprint 3 2.3.1 Memory Palace v9 框架** → 状态改为 ✅ 完成
+1. **Sprint 3 2.3.1 Memory Palace v0.9.0 框架** → 状态改为 ✅ 完成
 2. **Sprint 9 Memory Palace 完整版** → 重新定义范围（v2 主要做 Ombre Brain 对话耦合 + 多用户 E2E 同步集成，不是 L2 模块交付）
 3. **更新 Sprint 路线图**
 
 ### 6.4 tasks/todo.md
 
-1. **Sprint 3 Memory Palace v9 框架** → ✅
+1. **Sprint 3 Memory Palace v0.9.0 框架** → ✅
 2. **更新里程碑状态**
 
 ---
@@ -305,33 +305,33 @@ def get_orchestrator(user_id: str) -> MemoryOrchestrator:
 
 ### 7.3 架构边界澄清
 
-Memory Palace v9.0.0 不承担画像职责。MP 六维跑分均第一（862 tests green·Benchmark #1 47/75），**禁止修改 MP 内部逻辑**。画像改进全部在 Flutter/Dart 侧完成，通过 MP API 获取信号。
+Memory Palace v0.9.0 不承担画像职责。MP 六维跑分均第一（862 tests green·Benchmark #1 47/75），**禁止修改 MP 内部逻辑**。画像改进全部在 Flutter/Dart 侧完成，通过 MP API 获取信号。
 
 ### 7.4 缓解路径（不增加 Sprint 范围）
 
 ```
 Phase 1: PersonaTrait.score 动态更新（Sprint 3 可启动）
 Phase 2: MP 信号接入·DDI 感知置信度（Sprint 4-5）
-Phase 3: 涌现原型（v2·50+会话后·行为驱动取代测试驱动）
+Phase 3: 涌现原型（v0.2.0·50+会话后·行为驱动取代测试驱动）
 ```
 
 ---
 
-## 八、v7 因果推理增强路线（2026-06-10 论证驱动）
+## 八、v0.7.0 因果推理增强路线（2026-06-10 论证驱动）
 
 > 依据：[hazy-baking-puffin.md §第十一部分](../code/Memory%20Palace/plans/hazy-baking-puffin.md) 论证结论——
-> "因果推理是唯一具有明确提升空间的维度——缺少反事实推理（Counterfactuals）、因果边验证（Causal Verification）和因果链摘要（Causal Chain Summarization）。这三位一体的增强（对应 Pearl 因果之梯的第 2-3 层）应在 v7 中实现。"
+> "因果推理是唯一具有明确提升空间的维度——缺少反事实推理（Counterfactuals）、因果边验证（Causal Verification）和因果链摘要（Causal Chain Summarization）。这三位一体的增强（对应 Pearl 因果之梯的第 2-3 层）应在 v0.7.0 中实现。"
 
-### 8.1 待交付模块 ✅ 已于 v7 全部交付（2026-06-06）
+### 8.1 待交付模块 ✅ 已于 v0.7.0 全部交付（2026-06-06）
 
 | # | 模块 | 优先级 | 理论来源 | 状态 |
 |---|------|--------|---------|------|
-| 25 | causal_verifier | **P1** | Pearl (2009) 因果之梯 L1→L2 | ✅ **v7 已完成** (814行) |
-| 26 | Narrative→Causal Bridge | **P1** | Schank (1990) §7 叙事因果 | ✅ **v7 已完成** (narrative_engine.py 新增方法) |
-| 27 | counterfactual_memory | P2 | Pearl (2018) *The Book of Why* L3 | ✅ **v7 已完成** (561行) |
-| 28 | causal_chain_summarizer | P2 | CausalRAG (ACL 2025) | ✅ **v7 已完成** (579行) |
-| 29 | narrative_branch_predictor | P2 | Schank (1990) + Dot Living History | ✅ **v7 已完成** (570行) |
-| 30 | memory_load_monitor | P2 | McClelland et al. (1995) + Diekelmann & Born (2010) | ✅ **v7 已完成** (541行) |
+| 25 | causal_verifier | **P1** | Pearl (2009) 因果之梯 L1→L2 | ✅ **v0.7.0 已完成** (814行) |
+| 26 | Narrative→Causal Bridge | **P1** | Schank (1990) §7 叙事因果 | ✅ **v0.7.0 已完成** (narrative_engine.py 新增方法) |
+| 27 | counterfactual_memory | P2 | Pearl (2018) *The Book of Why* L3 | ✅ **v0.7.0 已完成** (561行) |
+| 28 | causal_chain_summarizer | P2 | CausalRAG (ACL 2025) | ✅ **v0.7.0 已完成** (579行) |
+| 29 | narrative_branch_predictor | P2 | Schank (1990) + Dot Living History | ✅ **v0.7.0 已完成** (570行) |
+| 30 | memory_load_monitor | P2 | McClelland et al. (1995) + Diekelmann & Born (2010) | ✅ **v0.7.0 已完成** (541行) |
 
 ### 8.2 因果推理差距闭合策略 ✅ 已完成
 
@@ -353,20 +353,20 @@ Phase 3: 涌现原型（v2·50+会话后·行为驱动取代测试驱动）
 
 ### 8.4 集成影响
 
-- `memory_orchestrator.py`：新增 6 个可选模块参数，`_async_hold_pipeline` 和 `dream()` 方法中注入 v7 调用
+- `memory_orchestrator.py`：新增 6 个可选模块参数，`_async_hold_pipeline` 和 `dream()` 方法中注入 v0.7.0 调用
 - `sleeptime_compute.py`：`_stage_consolidate()` 中调用 Narrative→Causal Bridge
 - `narrative_engine.py`：新增 `extract_causal_edges()` 方法
 
 ---
-*2026-06-10 v7 增补：以上 6 模块为 Track A/B/C 论证的结论性行动项。*
+*2026-06-10 v0.7.0 增补：以上 6 模块为 Track A/B/C 论证的结论性行动项。*
 
 ---
 
 ---
 
-## 九、v9.0.0 检索引擎修复（2026-06-10 Benchmark 驱动·5 Fix）
+## 九、v0.9.0 检索引擎修复（2026-06-10 Benchmark 驱动·5 Fix）
 
-> **触发事件**：BM25 vs MP 基准测试揭露 MP v9 在 22 条合成记忆上排名 #7/8（32/75, avg 1.28），而 BM25 Baseline（实际为关键词重叠率）排名 #1（43/75, avg 1.72）。
+> **触发事件**：BM25 vs MP 基准测试揭露 MP v0.9.0 在 22 条合成记忆上排名 #7/8（32/75, avg 1.28），而 BM25 Baseline（实际为关键词重叠率）排名 #1（43/75, avg 1.72）。
 > **根因分析**：[hazy-baking-puffin.md §BM25 vs MP 根因分析](../code/Memory%20Palace/plans/hazy-baking-puffin.md) 识别了五层根因，从评分函数方法论不匹配到 DDI 设计违反。
 > **修复结果**：MP 47/75 (1.88, #1/8)，全量 862 tests green。
 
@@ -402,9 +402,9 @@ Phase 3: 涌现原型（v2·50+会话后·行为驱动取代测试驱动）
 
 | 文档 | 更新内容 | 状态 |
 |------|---------|------|
-| [记忆宫殿详细设计.md](记忆宫殿详细设计.md) | §7.6 新增 v9.0.0 五个 Fix 详解 + 两阶段融合架构 | ✅ 已同步 |
+| [记忆宫殿详细设计.md](记忆宫殿详细设计.md) | §7.6 新增 v0.9.0 五个 Fix 详解 + 两阶段融合架构 | ✅ 已同步 |
 | [hazy-baking-puffin.md](../code/Memory%20Palace/plans/hazy-baking-puffin.md) | §BM25 vs MP 根因分析（论证）+ 实现完成标记 | ✅ 已有 |
-| 本文档 | §九 v9.0.0 修复记录 | ✅ 本次更新 |
+| 本文档 | §九 v0.9.0 修复记录 | ✅ 本次更新 |
 
 ---
 
@@ -418,26 +418,26 @@ Phase 3: 涌现原型（v2·50+会话后·行为驱动取代测试驱动）
 |------|------|
 | [MemoryPalace_plan.md](../code/Memory%20Palace/plans/MemoryPalace_plan.md) | §第十二部分：工程落地与计划差异论证——检索路径·DDA·重要性·因果·Track C 全部以工程实现为准 |
 | [待实现能力-影响分析与路线图.md](待实现能力-影响分析与路线图.md) | Sleeptime Compute 时间线·隐私架构优化计划·5 项待实现能力的 Benchmark 影响分析 |
-| [记忆宫殿详细设计.md](记忆宫殿详细设计.md) | 24 核心模块 + 7 支持模块完整文档·v9.0.0 5 Fix 详解 |
+| [记忆宫殿详细设计.md](记忆宫殿详细设计.md) | 24 核心模块 + 7 支持模块完整文档·v0.9.0 5 Fix 详解 |
 
 **核心结论（2026-06-13）**：
-1. Memory Palace v9.0.0 在全部 6 个认知维度上均达到理论最优（因果推理已于 v7 闭合）
+1. Memory Palace v0.9.0 在全部 6 个认知维度上均达到理论最优（因果推理已于 v0.7.0 闭合）
 2. 5 项待实现能力中，无一会对当前 Benchmark #1 (47/75) 造成实质性负面影响
-3. app.py 生产连线（P0）是唯一需要立即执行的任务——激活已在测试中验证的完整 v9 模型
+3. app.py 生产连线（P0）是唯一需要立即执行的任务——激活已在测试中验证的完整 v0.9.0 模型
 4. 计划 MemoryPalace_plan.md 已更新 §第十二部分——以工程实现为准融合理论论证
 
 ---
 
 ## 十一、最终结论
 
-**核心发现**：Memory Palace 的实际实现已经达到甚至超过了设计方案中定义的 **v9 完整版 + Track C SOTA 增强** 的水平。设计中标记为"v2 推迟"的模块（L2 全部 6 个模块、DDA 完整版、v9 高级模块）**均已在代码中完整实现并通过测试**。
+**核心发现**：Memory Palace 的实际实现已经达到甚至超过了设计方案中定义的 **v0.9.0 完整版 + Track C SOTA 增强** 的水平。设计中标记为"v2 推迟"的模块（L2 全部 6 个模块、DDA 完整版、v0.9.0 高级模块）**均已在代码中完整实现并通过测试**。
 
 **关键缺口（按优先级排列）**：
-1. **app.py 生产连线**：v9 增强模块未注入生产 API 路径（需更新工厂函数）→ **P0**。详见 [待实现能力-影响分析与路线图](待实现能力-影响分析与路线图.md) §三·5
+1. **app.py 生产连线**：v0.9.0 增强模块未注入生产 API 路径（需更新工厂函数）→ **P0**。详见 [待实现能力-影响分析与路线图](待实现能力-影响分析与路线图.md) §三·5
 2. **Sleeptime Compute 生产集成**：代码已完成·仅需 app.py 连线 → **P1**（同上 §一）
 3. **对话压缩器**：设计中的超长上下文管理未实现 → **P2**。低风险·需缓解措施（同上 §三·4）
 4. **流式 SSE 端点**：API 层未暴露 Gateway 已支持的流式能力 → **P3**。零 Benchmark 影响（同上 §三·3）
-5. **差分隐私先验层**：计划 v6 L2·WBS 2.9 未部署 → **P4**。零 Benchmark 影响（同上 §三·1）
+5. **差分隐私先验层**：计划 v0.6.0 L2·WBS 2.9 未部署 → **P4**。零 Benchmark 影响（同上 §三·1）
 6. **Prompt 缓存**：设计中的 LLM 成本优化策略未实现 → **P5**。零 Benchmark 影响（同上 §三·2）
 7. **画像系统演化**：6 trait→24原型为静态快照·需升级为动态演化画像（Flutter/Dart侧·不改MP）
 
