@@ -36,7 +36,7 @@ workflows:
           cd code/app
           flutter build ipa --debug \
             --export-method development \
-            --build-name=1.0.0 \
+            --build-name=0.1.0 \
             --build-number=$BUILD_NUMBER
     artifacts:
       - code/app/build/ios/ipa/*.ipa
@@ -87,7 +87,7 @@ workflows:
           cd code/app
           flutter build ipa --release \
             --export-method app-store \
-            --build-name=1.0.0 \
+            --build-name=0.1.0 \
             --build-number=$BUILD_NUMBER
     artifacts:
       - code/app/build/ios/ipa/*.ipa
