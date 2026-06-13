@@ -40,12 +40,35 @@ from llm_gateway import LLMGateway
 from namespace_manager import NamespaceManager
 from auth_service import AuthService
 from memory_orchestrator import MemoryOrchestrator
+from retrieval_engine import RetrievalEngine
+from memory_graph import MemoryGraph
+from importance_fusion import ImportanceFusion
+from flashbulb_detector import FlashbulbDetector
+from script_deviation import ScriptDeviation
+from vulnerability_model import VulnerabilityModel
+from working_self import WorkingSelf
+from dda_controller import DDAController
+from cold_start import ColdStartPolicy
+from global_prior import GlobalPrior
+from narrative_engine import NarrativeEngine
+from memory_evolution import MemoryEvolution
+from sleeptime_compute import SleeptimeComputer
+from procedural_memory import ProceduralMemory
+from graph_rag import GraphRAG
+from hippo_rag import HippoRAG
+from learnable_weights import LearnableWeights
+from causal_verifier import CausalVerifier
+from counterfactual_memory import CounterfactualMemory
+from causal_chain_summarizer import CausalChainSummarizer
+from narrative_branch_predictor import NarrativeBranchPredictor
+from memory_load_monitor import MemoryLoadMonitor
 
 # Shared components (stateless, thread-safe)
 llm_gateway = LLMGateway(config=config)
 namespace_mgr = NamespaceManager(config.get("buckets_dir", "./buckets"))
 dehydrator = Dehydrator(config)
 auth_service = AuthService()
+global_prior = GlobalPrior()
 
 # Per-user component factory
 def _make_components(user_id: str) -> dict:
@@ -69,15 +92,96 @@ def _make_components(user_id: str) -> dict:
     }
 
 
-# ── Orchester factory ───────────────────────────────────
-def get_orchestrator(user_id: str) -> MemoryOrchestrator:
-    comps = _make_components(user_id)
+# ── Orchestrator factory ─────────────────────────────────
+def _make_orchestrator(user_id: str) -> MemoryOrchestrator:
+    """Create a fully-wired MemoryOrchestrator for a user.
+
+    Wires all 22 optional modules (DDA+graph+L2+Track C+v7 causal),
+    per WBS 2.8.1: 工厂函数注入完整 v9 模块.
+    """
+    paths = namespace_mgr.resolve(user_id)
+    user_config = {**config, "buckets_dir": paths["buckets_dir"]}
+
+    # ── L1: Storage ──
+    embedding_engine = EmbeddingEngine(config, user_id=user_id)
+    bucket_mgr = BucketManager(user_config, embedding_engine=embedding_engine, user_id=user_id)
+    decay_engine = DecayEngine(user_config, bucket_mgr, user_id=user_id)
+
+    # ── L0: DDA Adaptive ──
+    dda = DDAController(stats_dir=paths["buckets_dir"])
+    cold_start = ColdStartPolicy()
+
+    # ── L1: Graph ──
+    graph = MemoryGraph(user_id=user_id, db_dir=paths["buckets_dir"])
+
+    # ── L2: Intelligence (6 modules) ──
+    retrieval = RetrievalEngine()
+    importance = ImportanceFusion()
+    flashbulb = FlashbulbDetector()
+    script_dev = ScriptDeviation(user_id=user_id, data_dir=paths["buckets_dir"])
+    vulnerability = VulnerabilityModel(user_id=user_id, data_dir=paths["buckets_dir"])
+    ws = WorkingSelf(user_id=user_id, data_dir=paths["buckets_dir"])
+
+    # ── v9 Track A: Advanced ──
+    narrative = NarrativeEngine(user_id=user_id, data_dir=paths["buckets_dir"])
+    evolution = MemoryEvolution(user_id=user_id, data_dir=paths["buckets_dir"])
+    sleeptime = SleeptimeComputer(
+        user_id=user_id,
+        bucket_mgr=bucket_mgr,
+        decay_engine=decay_engine,
+        memory_graph=graph,
+        narrative_engine=narrative,
+        memory_evolution=evolution,
+        embedding_engine=embedding_engine,
+    )
+
+    # ── Track C: SOTA (4 modules) ──
+    procedural = ProceduralMemory(user_id=user_id, data_dir=paths["buckets_dir"])
+    graph_rag_engine = GraphRAG(resolution=1.0)
+    hippo_rag_engine = HippoRAG(alpha=0.85)
+    learnable = LearnableWeights(
+        base_weights=retrieval.path_weights.copy(),
+        user_id=user_id,
+        data_dir=paths["buckets_dir"],
+    )
+    retrieval.learnable_weights = learnable
+
+    # ── v7: Causal Reasoning (6 modules) ──
+    causal_v = CausalVerifier(user_id=user_id)
+    counterfactual = CounterfactualMemory(user_id=user_id)
+    causal_summarizer = CausalChainSummarizer(user_id=user_id, llm_gateway=llm_gateway)
+    branch_predictor = NarrativeBranchPredictor(user_id=user_id)
+    load_monitor = MemoryLoadMonitor(user_id=user_id, data_dir=paths["buckets_dir"])
+
+    # ── Assemble ──
     return MemoryOrchestrator(
-        bucket_mgr=comps["bucket_mgr"],
-        decay_engine=comps["decay_engine"],
+        user_id=user_id,
+        bucket_mgr=bucket_mgr,
+        decay_engine=decay_engine,
+        embedding_engine=embedding_engine,
         dehydrator=dehydrator,
-        embedding_engine=comps["embedding_engine"],
         llm_gateway=llm_gateway,
+        dda_controller=dda,
+        memory_graph=graph,
+        cold_start_policy=cold_start,
+        global_prior=global_prior,
+        script_deviation=script_dev,
+        flashbulb_detector=flashbulb,
+        vulnerability_model=vulnerability,
+        working_self=ws,
+        importance_fusion=importance,
+        retrieval_engine=retrieval,
+        narrative_engine=narrative,
+        memory_evolution=evolution,
+        sleeptime_computer=sleeptime,
+        procedural_memory=procedural,
+        graph_rag=graph_rag_engine,
+        hippo_rag=hippo_rag_engine,
+        causal_verifier=causal_v,
+        counterfactual_memory=counterfactual,
+        causal_chain_summarizer=causal_summarizer,
+        narrative_branch_predictor=branch_predictor,
+        memory_load_monitor=load_monitor,
     )
 
 

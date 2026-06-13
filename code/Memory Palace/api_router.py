@@ -14,7 +14,7 @@ from fastapi.responses import JSONResponse
 
 from app import (
     auth_service, namespace_mgr, dehydrator, llm_gateway, config,
-    _make_components, get_orchestrator,
+    _make_components, _make_orchestrator,
 )
 
 from memory_orchestrator import DUYING_SYSTEM_PROMPT
@@ -92,7 +92,7 @@ async def auth_logout(request: Request):
 @router.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest, user_id: str = Depends(require_auth)):
     """Main chat endpoint: breath -> inject -> LLM -> reply."""
-    orch = get_orchestrator(user_id)
+    orch = _make_orchestrator(user_id)
     result = await orch.chat(
         user_message=req.user_message,
         conversation_id=req.conversation_id,
@@ -117,7 +117,7 @@ async def chat_stream(req: ChatRequest, user_id: str = Depends(require_auth)):
     """
     from fastapi.responses import StreamingResponse
 
-    orch = get_orchestrator(user_id)
+    orch = _make_orchestrator(user_id)
 
     async def event_stream():
         import json as _json
