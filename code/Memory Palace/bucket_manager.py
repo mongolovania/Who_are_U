@@ -51,9 +51,12 @@ class BucketManager:
     天然兼容 Obsidian 直接浏览和编辑。
     """
 
-    def __init__(self, config: dict, embedding_engine=None):
+    def __init__(self, config: dict, embedding_engine=None, user_id: str = ""):
         # --- Read storage paths from config / 从配置中读取存储路径 ---
+        self._user_id = user_id
         self.base_dir = config["buckets_dir"]
+        if user_id:
+            self.base_dir = os.path.join(self.base_dir, user_id)
         self.permanent_dir = os.path.join(self.base_dir, "permanent")
         self.dynamic_dir = os.path.join(self.base_dir, "dynamic")
         self.archive_dir = os.path.join(self.base_dir, "archive")

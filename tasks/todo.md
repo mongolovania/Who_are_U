@@ -1,6 +1,6 @@
 # 你谁啊 (Who Are U) — 实施任务跟踪
 
-> 商业模式：**月付订阅制**（¥19/月 + 3天全功能试用，免费下载）
+> 商业模式：**月付订阅制**（免费下载 + ¥35/月 + ¥299/年 + 3天全功能试用）
 > 交付策略：**两阶段 MVP**（v1 本地优先 → v2 账户+同步+智能）
 > 架构设计：[架构设计-账户隐私同步智能.md](架构设计-账户隐私同步智能.md)
 > WBS 详见：[WBS-产品分解结构.md](WBS-产品分解结构.md)
@@ -40,24 +40,35 @@ S1✅ S2🔜  S3     S4     S5      S6     S7     S8    S9     S10+
 - [x] AI API 代理端点（/api/chat, 17 tests ✅）
 - [x] 设计 5 阶段对话提示词模板
 
-### Sprint 2: 用户画像 + 初始测试 — Week 3-4 🔜
-- [ ] 实现加密密钥初始化（SecureStore 生成/获取加密密钥，供数据库和文件加密使用）
-- [ ] 设计 10 题初始测试（题目内容 + 评分算法 + 3 特质映射）
-- [ ] 实现测试 UI（渐变背景、题目切换动画）
-- [ ] 实现特质泡泡展示（PersonaTrait，气泡动画）
-- [ ] 实现用户画像存储和读取（SQLite CRUD + 加密）
+### Sprint 2: 用户画像 + 初始测试 — Week 3-4 ✅
+- [x] 实现加密密钥初始化（SecureStore 生成/获取加密密钥，供数据库和文件加密使用）
+- [x] 设计 10 题初始测试（题目内容 + 评分算法 + 3 特质映射）
+- [x] 实现测试 UI（渐变背景、题目切换动画）
+- [x] 实现特质泡泡展示（PersonaTrait，气泡动画）
+- [x] 实现用户画像存储和读取（SQLite CRUD + 加密）
+- [x] **Bug 修复**：SQLCipher 加密密钥提前到 onConfigure + PersonaRepository.save 连线
+- [x] **Analyzer 清零**：8 errors + 2 warnings 修复，16/16 tests ✅
+- [x] **CI/CD**：GitHub Actions + Codemagic 双流水线就绪
 
-### Sprint 3: 决策助手对话引擎 — Week 5-8（核心瓶颈·4周）
-- [x] 设计 5 阶段对话提示词模板
-- [ ] 实现对话状态机（ConversationEngine）
-- [ ] 实现各阶段处理器（5 个 Stage 实现）
-- [ ] 实现对话 UI（ChatBubble, TypingIndicator, StageProgress）
-- [ ] 实现 AI API 调用集成（通过后端代理）
+### Sprint 3: 陪伴对话引擎 + 决策智囊 — Week 5-8（核心瓶颈·4周）🔜
+- [x] ✅ **Memory Palace v9 完整版 已交付**（24模块·L0/L1/L2/L3全层+Track C SOTA增强+v9·~25,000行·27测试·详见偏差分析报告）
+- [x] ✅ **Memory Palace v9.0.0 检索引擎修复**（5 Fix·Benchmark驱动·MP #1/8·862 tests green·详见[记忆宫殿详细设计 §7.6](记忆宫殿详细设计.md)）
+- [x] ✅ **24原型数据模型**（Archetype + ArchetypeRegistry + 6 trait 映射·含 8 tests）
+- [x] ✅ **大师选择引擎**（SelectionEngine + DecisionService·24×50匹配·top 7）
+- [ ] 实现 50 大师 JSON 数据库（4领域 × 12-13位 × 方法论+金句+使用指南）
+- [ ] ⚠️ **画像演化引擎**（静态快照→动态画像·PersonaTrait.score 随时间/情绪/对话更新·MP信号接入·DDI感知置信度）
+- [ ] 实现对话状态机（ConversationEngine·闲聊模式 ↔ 决策模式切换）
+- [ ] 实现各阶段处理器（5 个 Stage + 阶段3-4大师注入）
+- [ ] 实现对话 UI（ChatBubble, MasterBadge, MasterPanel, TypingIndicator, StageProgress）
+- [ ] 实现陪伴角色形象组件（CompanionAvatar·状态变化）
+- [ ] 实现 AI API 调用集成（通过后端代理·流式输出）
 - [ ] 实现对话历史加密存储（FileStore）
-- [ ] 实现决策报告生成和展示（DecisionReportCard）
-- [ ] 实现对话压缩（长对话摘要，token 预算控制）
+- [ ] 实现超长上下文管理（对话压缩·token预算控制·记忆浮现）
+- [ ] 实现决策报告生成和展示（DecisionReportCard·含大师引用标注）
 - [ ] 实现离线降级提示
-- [ ] **实现会员权限检查（免费2次后触发付费墙）**
+- [ ] **实现会员权限检查（3天免费试用后触发付费墙）**
+
+> ⚠️ **架构边界（2026-06-13）**：Memory Palace v9.0.0 = 记忆引擎·六维跑分均第一·862 tests green。**禁止修改 MP 内部检索/存储/推理逻辑**。画像演化改进全部在 Flutter/Dart 侧——通过 MP API 调用已有信号。
 
 ### Sprint 4: 我之山 + 月付订阅 — Week 9-11（3周）
 
@@ -230,12 +241,12 @@ S1✅ S2🔜  S3     S4     S5      S6     S7     S8    S9     S10+
 | 里程碑 | 时间 | 交付物 | 状态 |
 |--------|------|--------|------|
 | **M0** | Week 2 | 脚手架完成 | ✅ |
-| **M1** | Week 6 | 端到端对话 Demo — 初始测试 → 对话 → 报告 | ⬜ |
+| **M1** | Week 6 | Memory Palace v9 底座就绪 → 对话引擎 → 报告 | 🔜 |
 | **M2** | Week 8 | 免费试用闭环 — 2次免费对话后触发付费墙 | ⬜ |
 | **M3** | Week 11 | 订阅商业闭环 — 我之山 + 月付订阅 + 基础称号外观 | ⬜ |
 | **M4** | Week 13 | 🚀 MVP v1 App Store 提交审核 | ⬜ |
 | **M5** | Week 16 | 账户+同步闭环 — 跨设备数据自动同步 | ⬜ |
-| **M6** | Week 18 | Ombre Brain 记忆循环 — breath/hold/dream | ⬜ |
+| **M6** | Week 18 | MP 生产连线+对话耦合 — breath/hold/dream完整集成 | ⬜ |
 | **M7** | Week 20 | 聚合引擎上线 — 称号稀有度% + 隐藏道具 | ⬜ |
 | **M8** | Week 22 | 🚀 MVP v2 全球上线（4 区域部署） | ⬜ |
 | **M9** | Week 44+ | 🚀 完整产品上线（含 Android） | ⬜ |
@@ -248,20 +259,28 @@ _（无）_
 
 ## 技术债务
 
+- [ ] **app.py 生产连线**：`get_orchestrator()` 未注入 v9 增强模块（DDA+graph+L2+Track C），API 使用 basic fallback
+- [ ] **Prompt 缓存**：静态系统 Prompt 缓存未实现（设计目标节省 30-50% 输入 token）
+- [ ] **流式 SSE 端点**：LLMGateway.chat_stream() 存在，api_router 未暴露
+- [ ] **对话压缩器**：ConversationCompressor 类未创建
 - [ ] 数据库加密密钥实际集成（目前为 TODO）
 - [ ] IAP 票据验证后端实现（目前为占位）
-- [ ] 实际 AI 提示词模板设计（目前为概念级）
 
 ## 待决策项
 
 - [x] Flutter vs React Native 最终确认 — 已选择 Flutter
-- [x] 商业模式 — 已 pivot 为月付订阅制（¥19/月 + 3天全功能试用）
+- [x] 商业模式 — 免费下载 + ¥35/月 + ¥299/年 + 3天全功能试用
 - [x] 交付策略 — 两阶段 MVP（v1 本地优先 → v2 账户+同步+智能）
 - [x] 认证方式 — Email + Apple Sign In
 - [x] 加密方案 — E2E AES-256-GCM + Argon2id + Curve25519
 - [x] 聚合方案 — 差分隐私（Laplace noise, ε=0.5）
 - [x] 数据驻留 — 4 区域部署（eu/cn/us/sg）
+- [x] 用户画像 — 24原型系统（4阵营×6）+ 6 trait兼容映射
+- [x] 决策智囊 — 50大师蒸馏引擎 + 选择引擎
+- [x] 记忆引擎 — Memory Palace v9 完整版·v1 已交付（17专家6轮辩论定版·24模块·Track C增强）
+- [x] 交互架构 — 我之山3D主场景 + 对话页面 + 装扮页面
 - [ ] Spine vs Rive 动画引擎选择（Phase 3 决策）
+- [ ] 3D 渲染方案选择（Flutter 3D/Unity嵌入/Rive/CustomPainter）（Sprint 4 前决策）
 - [ ] 后端部署平台选择（Railway / Render / 自托管）（Sprint 5 前决策）
 
 ---
@@ -278,4 +297,4 @@ _（无）_
 
 ---
 
-_最后更新：2026-06-07（四位一体架构确认，两阶段交付路线确定，WBS v3 + Sprint 计划更新完成）_
+_最后更新：2026-06-10（Memory Palace v9 完整版 ✅·v9.0.0 检索引擎修复 ✅·5 Fix·MP #1/8·862 tests green·偏差分析+技术方案同步完成）_

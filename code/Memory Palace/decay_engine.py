@@ -36,12 +36,13 @@ class DecayEngine:
     计算衰减得分，将低活跃桶自动归档，模拟自然遗忘。
     """
 
-    def __init__(self, config: dict, bucket_mgr):
+    def __init__(self, config: dict, bucket_mgr, user_id: str = ""):
         # --- Load decay parameters / 加载衰减参数 ---
         decay_cfg = config.get("decay", {})
         self.decay_lambda = decay_cfg.get("lambda", 0.05)
         self.threshold = decay_cfg.get("threshold", 0.3)
         self.check_interval = decay_cfg.get("check_interval_hours", 24)
+        self.user_id = user_id
 
         # --- Emotion weight params (continuous arousal coordinate) ---
         # --- 情感权重参数（基于连续 arousal 坐标）---
@@ -54,6 +55,61 @@ class DecayEngine:
         # --- Background task control / 后台任务控制 ---
         self._task: asyncio.Task | None = None
         self._running = False
+
+        # --- Life Tick: health monitoring (v6 plan) / 心跳健康监控 ---
+        self._last_tick = 0.0
+        self._tick_timeout = 300          # 5 minutes without tick = dead
+        self._cycle_count = 0
+        self._error_count = 0
+        self._health_status = "healthy"   # healthy | degraded | dead
+        self._life_tick_interval = 60 * 60  # Health check interval (1h)
+
+        # ── DDA integration (v6 L0→L1 coupling) ──────────
+        self._ddi_level = "COLD"
+        self._strategy_applied = False
+
+    # ── DDA adaptive lambda ─────────────────────────────
+
+    def apply_dda_strategy(self, strategy) -> None:
+        """
+        Apply DDA strategy settings to decay engine.
+        将 DDA 策略应用到衰减引擎参数。
+
+        Called by memory_orchestrator when DDI level changes.
+        COLD users: no decay (protect early memories)
+        WARM+: decay enabled with adaptive lambda
+        """
+        from memory_node import DDAStrategy
+        if isinstance(strategy, DDAStrategy):
+            self.decay_enabled = strategy.decay_enabled
+            if strategy.decay_enabled:
+                self.decay_lambda = strategy.decay_lambda
+            else:
+                self.decay_lambda = 0.0
+            self._strategy_applied = True
+
+    def set_ddi_level(self, level: str) -> None:
+        """
+        Set DDI level for adaptive decay.
+        COLD → no decay, WARM → global λ, HOT → personal λ, RICH → fully adaptive.
+        """
+        self._ddi_level = level
+        if level == "COLD":
+            self.decay_enabled = False
+            self.decay_lambda = 0.0
+            self.threshold = 0.0  # never archive
+        elif level == "WARM":
+            self.decay_enabled = True
+            self.decay_lambda = 0.05
+            self.threshold = 0.3
+        elif level == "HOT":
+            self.decay_enabled = True
+            self.decay_lambda = 0.05
+            self.threshold = 0.25
+        elif level == "RICH":
+            self.decay_enabled = True
+            self.decay_lambda = 0.05
+            self.threshold = 0.2
 
     @property
     def is_running(self) -> bool:
@@ -300,14 +356,42 @@ class DecayEngine:
         logger.info("Decay engine stopped / 衰减引擎已停止")
 
     async def _background_loop(self) -> None:
-        """Background loop: run decay → sleep → repeat.
-        后台循环体：执行衰减 → 睡眠 → 重复。"""
+        """Background loop with Life Tick health monitoring (v6 plan).
+        后台循环体：执行衰减 → 健康检查 → 睡眠 → 重复。"""
+        import time as _time
         while self._running:
             try:
-                await self.run_decay_cycle()
+                # Run decay cycle with 2-min timeout per cycle
+                await asyncio.wait_for(
+                    self.run_decay_cycle(),
+                    timeout=120
+                )
+                self._last_tick = _time.time()
+                self._cycle_count += 1
+                self._error_count = 0
+                self._health_status = "healthy"
+            except asyncio.TimeoutError:
+                logger.warning(f"[{self.user_id or 'global'}] Decay cycle timed out, skipping...")
+                self._error_count += 1
+                if self._error_count > 5:
+                    self._health_status = "degraded"
+            except asyncio.CancelledError:
+                break
             except Exception as e:
-                logger.error(f"Decay cycle error / 衰减周期出错: {e}")
-            # --- Wait for next cycle / 等待下一个周期 ---
+                logger.error(f"[{self.user_id or 'global'}] Decay cycle error: {e}")
+                self._error_count += 1
+                if self._error_count > 5:
+                    self._health_status = "degraded"
+
+            # Health check: reset if stuck for too long
+            elapsed = _time.time() - self._last_tick if self._last_tick else 0
+            if elapsed > self._tick_timeout:
+                logger.error(f"[{self.user_id or 'global'}] Decay engine appears dead, resetting...")
+                self._error_count = 0
+                self._last_tick = _time.time()
+                self._health_status = "healthy"
+
+            # Wait for next cycle
             try:
                 await asyncio.sleep(self.check_interval * 3600)
             except asyncio.CancelledError:

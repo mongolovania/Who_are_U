@@ -195,3 +195,273 @@ async def _write_bucket_file(bucket_mgr, content, **kwargs):
             f.write(fm.dumps(post))
 
     return bid
+
+
+# ═══════════════════════════════════════════════════════════════
+# v6 Memory Palace module fixtures
+# ═══════════════════════════════════════════════════════════════
+
+
+@pytest.fixture
+def dda_ctrl(tmp_path):
+    """DDAController with temp directory."""
+    from dda_controller import DDAController
+    return DDAController(stats_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def cold_start_policy():
+    """ColdStartPolicy singleton."""
+    from cold_start import ColdStartPolicy
+    return ColdStartPolicy()
+
+
+@pytest.fixture
+def global_prior_singleton():
+    """GlobalPrior singleton."""
+    from global_prior import GlobalPrior
+    return GlobalPrior()
+
+
+@pytest.fixture
+def memory_graph_fixture(tmp_path):
+    """MemoryGraph with temp SQLite database."""
+    from memory_graph import MemoryGraph
+    return MemoryGraph(user_id="test_user", db_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def flashbulb_detector_fixture():
+    """FlashbulbDetector instance."""
+    from flashbulb_detector import FlashbulbDetector
+    return FlashbulbDetector()
+
+
+@pytest.fixture
+def vulnerability_model_fixture(tmp_path):
+    """VulnerabilityModel with temp directory."""
+    from vulnerability_model import VulnerabilityModel
+    return VulnerabilityModel(user_id="test_user", data_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def importance_fusion_fixture():
+    """ImportanceFusion instance."""
+    from importance_fusion import ImportanceFusion
+    return ImportanceFusion()
+
+
+@pytest.fixture
+def retrieval_engine_fixture():
+    """RetrievalEngine instance."""
+    from retrieval_engine import RetrievalEngine
+    return RetrievalEngine()
+
+
+@pytest.fixture
+def script_deviation_fixture(tmp_path):
+    """ScriptDeviation with temp directory."""
+    from script_deviation import ScriptDeviation
+    return ScriptDeviation(user_id="test_user", data_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def working_self_fixture(tmp_path):
+    """WorkingSelf with temp directory."""
+    from working_self import WorkingSelf
+    return WorkingSelf(user_id="test_user", data_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def mock_llm_gateway():
+    """Mock LLM gateway for tests."""
+    gw = MagicMock()
+    gw.chat = AsyncMock(return_value="mock reply")
+    gw.chat_with_json = AsyncMock(return_value='{"result": "ok"}')
+    return gw
+
+
+@pytest.fixture
+def mock_orchestrator_deps(mock_llm_gateway, tmp_path):
+    """All mocked dependencies for MemoryOrchestrator."""
+    from memory_orchestrator import MemoryOrchestrator
+    from memory_node import COLD_STRATEGY, DDILevel, DDAStrategy
+
+    bm = AsyncMock()
+    bm.list_all = AsyncMock(return_value=[])
+    bm.create = AsyncMock(return_value="bid_001")
+    bm.search = AsyncMock(return_value=[])
+
+    de = MagicMock()
+    de.calculate_score = MagicMock(return_value=5.0)
+    de.apply_dda_strategy = MagicMock()
+    de.set_ddi_level = MagicMock()
+    de.run_decay_cycle = AsyncMock(return_value={"checked": 0, "archived": 0})
+
+    ee = MagicMock()
+    ee.generate_and_store = AsyncMock()
+    ee.search_similar = AsyncMock(return_value=[])
+
+    dh = MagicMock()
+    dh.dehydrate = AsyncMock(return_value="[摘要]")
+    dh.analyze = AsyncMock(return_value={"domain": [], "valence": 0.5, "arousal": 0.3})
+
+    dda = MagicMock()
+    dda.get_strategy_for_user = MagicMock(return_value=(DDILevel.COLD, 0.0, COLD_STRATEGY))
+    dda.load_stats = MagicMock(return_value=MagicMock())
+    dda.calculate_ddi = MagicMock(return_value=0.0)
+    dda.get_level = MagicMock(return_value=DDILevel.COLD)
+    dda.update_after_session = MagicMock(return_value=MagicMock())
+    dda.save_stats = MagicMock()
+    dda.log_session = MagicMock()
+
+    return {
+        "user_id": "test_user",
+        "bucket_mgr": bm,
+        "decay_engine": de,
+        "embedding_engine": ee,
+        "dehydrator": dh,
+        "llm_gateway": mock_llm_gateway,
+        "dda_controller": dda,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
+# v9 Track A module fixtures (Narrative + Evolution + Sleeptime)
+# ═══════════════════════════════════════════════════════════════
+
+
+@pytest.fixture
+def narrative_engine_fixture(tmp_path):
+    """NarrativeEngine with temp directory."""
+    from narrative_engine import NarrativeEngine
+    return NarrativeEngine(user_id="test_user", data_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def memory_evolution_fixture(tmp_path):
+    """MemoryEvolution with temp directory."""
+    from memory_evolution import MemoryEvolution
+    return MemoryEvolution(user_id="test_user", data_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def sleeptime_computer_fixture(tmp_path):
+    """SleeptimeComputer with mocked dependencies."""
+    from sleeptime_compute import SleeptimeComputer
+
+    bm = AsyncMock()
+    bm.list_all = AsyncMock(return_value=[])
+
+    de = MagicMock()
+    de.calculate_score = MagicMock(return_value=5.0)
+    de.run_decay_cycle = AsyncMock(return_value={"checked": 0, "archived": 0, "auto_resolved": 0})
+
+    g = MagicMock()
+    g.get_neighbors = MagicMock(return_value=[])
+    g.add_edge = MagicMock()
+    g.expire_edge = MagicMock()
+    g.get_graph_stats = MagicMock(return_value={"node_count": 0, "edge_count": 0, "active_edge_count": 0})
+
+    ne = MagicMock()
+    ne.run_narrative_merge = AsyncMock(return_value={
+        "communities_detected": 0, "threads_merged": 0,
+        "summaries_updated": 0, "threads_resolved": 0,
+        "life_periods_updated": 0,
+    })
+
+    ev = MagicMock()
+    ev.run_evolution_cycle = AsyncMock(return_value={
+        "memories_scanned": 0, "re_evaluated": 0,
+        "ws_re_ranked": 0, "emergences_detected": 0,
+    })
+
+    return SleeptimeComputer(
+        user_id="test_user",
+        bucket_mgr=bm,
+        decay_engine=de,
+        memory_graph=g,
+        narrative_engine=ne,
+        memory_evolution=ev,
+    )
+
+
+# ═══════════════════════════════════════════════════════════════
+# v9 Track C module fixtures (GraphRAG + HippoRAG + Procedural + Learnable)
+# ═══════════════════════════════════════════════════════════════
+
+
+@pytest.fixture
+def leiden_detector_fixture():
+    """LeidenDetector instance."""
+    from graph_rag import LeidenDetector
+    return LeidenDetector(resolution=1.0, max_iterations=10)
+
+
+@pytest.fixture
+def graph_rag_engine_fixture():
+    """GraphRAGEngine instance."""
+    from graph_rag import GraphRAGEngine
+    return GraphRAGEngine(resolution=1.0)
+
+
+@pytest.fixture
+def sample_graph_edges():
+    """Sample graph edges for community detection testing."""
+    return [
+        {"from_id": "n1", "to_id": "n2", "weight": 1.0},
+        {"from_id": "n1", "to_id": "n3", "weight": 0.8},
+        {"from_id": "n2", "to_id": "n3", "weight": 0.9},
+        {"from_id": "n4", "to_id": "n5", "weight": 1.0},
+        {"from_id": "n4", "to_id": "n6", "weight": 0.7},
+        {"from_id": "n5", "to_id": "n6", "weight": 0.8},
+        {"from_id": "n3", "to_id": "n7", "weight": 0.5},
+        {"from_id": "n7", "to_id": "n8", "weight": 0.6},
+    ]
+
+
+@pytest.fixture
+def sample_graph_nodes():
+    """Sample graph nodes for community detection testing."""
+    return {
+        f"n{i}": {"type": "memory"} for i in range(1, 9)
+    }
+
+
+@pytest.fixture
+def ppr_engine_fixture():
+    """PersonalizedPageRank instance."""
+    from hippo_rag import PersonalizedPageRank
+    return PersonalizedPageRank(alpha=0.85, max_iterations=50)
+
+
+@pytest.fixture
+def hippo_rag_retriever_fixture():
+    """HippoRAGRetriever instance."""
+    from hippo_rag import HippoRAGRetriever
+    return HippoRAGRetriever(alpha=0.85)
+
+
+@pytest.fixture
+def procedural_memory_fixture(tmp_path):
+    """ProceduralMemory instance with temp directory."""
+    from procedural_memory import ProceduralMemory
+    return ProceduralMemory(user_id="test_user", data_dir=str(tmp_path / "buckets"))
+
+
+@pytest.fixture
+def learnable_weights_fixture():
+    """LearnablePathWeights instance with sample base weights."""
+    from learnable_weights import LearnablePathWeights
+    base_weights = {
+        "vector": 0.22,
+        "bm25": 0.10,
+        "graph": 0.18,
+        "emotion": 0.10,
+        "temporal": 0.12,
+        "cross_ref": 0.08,
+        "narrative": 0.08,
+        "ppr": 0.08,
+        "ws_rerank": 0.04,
+    }
+    return LearnablePathWeights(base_weights=base_weights)

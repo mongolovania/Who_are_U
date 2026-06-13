@@ -1208,7 +1208,7 @@ async def dream() -> str:
             for i, id_a in enumerate(ids):
                 for id_b in ids[i+1:]:
                     if id_a in embeddings and id_b in embeddings:
-                        sim = embedding_engine._cosine_similarity(embeddings[id_a], embeddings[id_b])
+                        sim = embedding_engine.cosine_similarity(embeddings[id_a], embeddings[id_b])
                         if sim > best_sim:
                             best_sim = sim
                             best_pair = (id_a, id_b)
@@ -1236,7 +1236,7 @@ async def dream() -> str:
                     similar_feels = []
                     for oid, oemb in feel_embeddings.items():
                         if oid != fid:
-                            sim = embedding_engine._cosine_similarity(femb, oemb)
+                            sim = embedding_engine.cosine_similarity(femb, oemb)
                             if sim > 0.7:
                                 similar_feels.append(oid)
                     if len(similar_feels) >= 2:
@@ -1382,7 +1382,7 @@ async def api_network(request):
         ids = list(embeddings.keys())
         for i, id_a in enumerate(ids):
             for id_b in ids[i+1:]:
-                sim = embedding_engine._cosine_similarity(embeddings[id_a], embeddings[id_b])
+                sim = embedding_engine.cosine_similarity(embeddings[id_a], embeddings[id_b])
                 if sim > 0.5:
                     edges.append({"source": id_a, "target": id_b, "similarity": round(sim, 3)})
 

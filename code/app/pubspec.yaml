@@ -75,6 +75,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/masters.json
     - assets/images/mountain/
     - assets/images/shadow/
     - assets/images/decorations/

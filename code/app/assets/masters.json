@@ -1,0 +1,502 @@
+[
+  {
+    "id": "munger",
+    "nameCn": "查理·芒格",
+    "nameEn": "Charlie Munger",
+    "domain": "economy",
+    "methodology": "逆向思维：不直接问'怎么成功'，而是问'怎么失败'然后全部避免。多元思维模型：用不同学科的工具分析同一个问题。能力圈：只在自己真正懂的领域做决定。",
+    "goldenQuote": "反过来想，总是反过来想。",
+    "usageGuide": "决策陷入思维定势时使用。引导用户从反面思考：'如果这个选择会失败，会怎么失败？'",
+    "tags": ["逆向思维", "多元模型", "能力圈", "价值投资"]
+  },
+  {
+    "id": "dalio",
+    "nameCn": "雷·达里奥",
+    "nameEn": "Ray Dalio",
+    "domain": "economy",
+    "methodology": "原则驱动决策：把每次决策提炼为可复用的原则。痛苦+反思=进步：把错误视为学习机会。机器思维：像操作机器一样理解系统运作。",
+    "goldenQuote": "痛苦+反思=进步。",
+    "usageGuide": "用户反复遇到类似问题时引用。帮助用户从经历中提炼原则。",
+    "tags": ["原则", "系统思维", "反思", "进化"]
+  },
+  {
+    "id": "deng",
+    "nameCn": "邓小平",
+    "nameEn": "Deng Xiaoping",
+    "domain": "economy",
+    "methodology": "实事求是：根据实际情况做判断，不教条。摸着石头过河：渐进式推进，不知全貌也能先走一步。黑猫白猫论：以结果检验方法。",
+    "goldenQuote": "不管黑猫白猫，捉到老鼠就是好猫。",
+    "usageGuide": "用户被理论或教条困住时引用。强调实际效果比理论正确更重要。",
+    "tags": ["实事求是", "渐进", "务实", "改革"]
+  },
+  {
+    "id": "jobs",
+    "nameCn": "史蒂夫·乔布斯",
+    "nameEn": "Steve Jobs",
+    "domain": "economy",
+    "methodology": "直觉驱动：相信内心的判断力。极简主义：砍掉所有不重要的，只留最核心的。Stay Hungry：保持饥饿让你持续前进。",
+    "goldenQuote": "Stay hungry, stay foolish. 求知若饥，虚心若愚。",
+    "usageGuide": "用户面对太多选项时引用。帮助用户识别什么是最重要的。",
+    "tags": ["直觉", "极简", "创新", "专注"]
+  },
+  {
+    "id": "drucker",
+    "nameCn": "彼得·德鲁克",
+    "nameEn": "Peter Drucker",
+    "domain": "economy",
+    "methodology": "目标管理：先定义什么是'对的事'，再考虑'怎么把事做对'。时间审计：追踪时间花在哪，才能管理时间。优势导向：发挥长处而非弥补短处。",
+    "goldenQuote": "效率是以正确的方式做事，效能是做正确的事。",
+    "usageGuide": "用户感到忙碌但无进展时引用。帮助区分'做对的事'和'把事做对'。",
+    "tags": ["目标管理", "效能", "时间管理", "领导力"]
+  },
+  {
+    "id": "buffett",
+    "nameCn": "沃伦·巴菲特",
+    "nameEn": "Warren Buffett",
+    "domain": "economy",
+    "methodology": "长期主义：以十年为单位思考，不为短期波动所动。护城河理论：只选有持续竞争优势的方向。能力圈：不懂的不投。",
+    "goldenQuote": "别人贪婪时我恐惧，别人恐惧时我贪婪。",
+    "usageGuide": "用户被短期得失困扰时引用。引导拉长时间视角看问题。",
+    "tags": ["长期主义", "价值投资", "耐心", "护城河"]
+  },
+  {
+    "id": "mao",
+    "nameCn": "毛泽东",
+    "nameEn": "Mao Zedong",
+    "domain": "economy",
+    "methodology": "矛盾论：抓住主要矛盾和矛盾的主要方面。实践论：认识从实践中来，到实践中去。战略上藐视，战术上重视。",
+    "goldenQuote": "没有调查就没有发言权。",
+    "usageGuide": "用户面对复杂局面不知从何下手时引用。帮助找到核心矛盾。",
+    "tags": ["矛盾论", "战略", "实践", "调研"]
+  },
+  {
+    "id": "thiel",
+    "nameCn": "彼得·蒂尔",
+    "nameEn": "Peter Thiel",
+    "domain": "economy",
+    "methodology": "从0到1：做别人没做过的事，而不是在红海中竞争。逆向问题：'有什么重要的事是几乎没人认同你的？'垄断思维：建立不可替代的优势。",
+    "goldenQuote": "有什么是你认为是对的，但几乎没人同意的？",
+    "usageGuide": "用户考虑创业或重大职业转变时引用。促使思考差异化价值。",
+    "tags": ["创新", "垄断", "逆向", "创业"]
+  },
+  {
+    "id": "smith",
+    "nameCn": "亚当·斯密",
+    "nameEn": "Adam Smith",
+    "domain": "economy",
+    "methodology": "看不见的手：个体自利行为在市场机制下产生整体效益。分工理论：专业化提升效率。道德情操：同理心是社会协作的基础。",
+    "goldenQuote": "我们期望的晚餐，不是来自屠夫、酿酒师或面包师的仁慈，而是来自他们对自己利益的关注。",
+    "usageGuide": "用户理解系统运作或权衡个人利益时引用。",
+    "tags": ["市场", "分工", "自利", "系统"]
+  },
+  {
+    "id": "keynes",
+    "nameCn": "约翰·凯恩斯",
+    "nameEn": "John Keynes",
+    "domain": "economy",
+    "methodology": "动物精神：市场受情绪驱动，不总是理性的。长期来看我们都死了：不要为了遥远的理论均衡而忽视眼前的实际问题。",
+    "goldenQuote": "市场保持非理性的时间可以长过你保持偿付能力的时间。",
+    "usageGuide": "用户过度理性化决策而忽略现实情绪因素时引用。",
+    "tags": ["宏观", "不确定性", "动物精神", "干预"]
+  },
+  {
+    "id": "marx",
+    "nameCn": "卡尔·马克思",
+    "nameEn": "Karl Marx",
+    "domain": "economy",
+    "methodology": "历史唯物主义：经济基础决定上层建筑。异化理论：人在不自由的工作中与自己疏离。批判性思维：质疑一切现有秩序。",
+    "goldenQuote": "哲学家们只是用不同的方式解释世界，而问题在于改变世界。",
+    "usageGuide": "用户质疑现有体系或感到被工作异化时引用。",
+    "tags": ["批判", "异化", "系统", "变革"]
+  },
+  {
+    "id": "zhangyiming",
+    "nameCn": "张一鸣",
+    "nameEn": "Zhang Yiming",
+    "domain": "economy",
+    "methodology": "延迟满足：为更大的长期回报忍受短期不适。认知效率：把信息获取和处理当作核心竞争力。平常心：在极端情绪中保持理性判断。",
+    "goldenQuote": "做难而正确的事。",
+    "usageGuide": "用户面临短期诱惑vs长期价值时引用。",
+    "tags": ["延迟满足", "理性", "认知", "平常心"]
+  },
+  {
+    "id": "leekashing",
+    "nameCn": "李嘉诚",
+    "nameEn": "Li Ka-shing",
+    "domain": "economy",
+    "methodology": "稳健经营：永远保持充足的现金流，不冒险赌命。风险管控：花90%的时间思考失败。知己知彼：充分研究再做决定。",
+    "goldenQuote": "审慎是一种美德，尤其在别人贪婪的时候。",
+    "usageGuide": "用户面临高财务风险决策时引用。",
+    "tags": ["稳健", "现金流", "风险", "耐心"]
+  },
+  {
+    "id": "hegel",
+    "nameCn": "黑格尔",
+    "nameEn": "Hegel",
+    "domain": "lifePhilosophy",
+    "methodology": "辩证法：正题→反题→合题，矛盾推动发展。主奴辩证法：自我意识在与他者的关系中形成。历史理性：历史有内在逻辑。",
+    "goldenQuote": "凡是现实的都是合理的，凡是合理的都是现实的。",
+    "usageGuide": "用户面对矛盾无法抉择时引用。帮助看到对立的双方如何推动进步。",
+    "tags": ["辩证法", "矛盾", "发展", "理性"]
+  },
+  {
+    "id": "camus",
+    "nameCn": "加缪",
+    "nameEn": "Albert Camus",
+    "domain": "lifePhilosophy",
+    "methodology": "荒谬英雄：承认生命无意义，但仍热烈地活着。西西弗斯：推石头上山本身就是对荒谬的反抗。不自杀、不信仰、不逃避——直面荒谬。",
+    "goldenQuote": "在隆冬，我终于知道，我身上有一个不可战胜的夏天。",
+    "usageGuide": "用户感到虚无或找不到意义时引用。帮助在无意义中找到力量。",
+    "tags": ["荒谬", "反抗", "意义", "存在"]
+  },
+  {
+    "id": "nietzsche",
+    "nameCn": "尼采",
+    "nameEn": "Nietzsche",
+    "domain": "lifePhilosophy",
+    "methodology": "超人哲学：超越现有道德和价值体系，创造自己的价值。amor fati：热爱命运，包括苦难。杀不死我的使我更强大。",
+    "goldenQuote": "杀不死我的，终将使我更强大。",
+    "usageGuide": "用户在经历重大挫折后重建自我时引用。激发内在力量。",
+    "tags": ["超人", "意志", "苦难", "价值"]
+  },
+  {
+    "id": "zhuangzi",
+    "nameCn": "庄子",
+    "nameEn": "Zhuangzi",
+    "domain": "lifePhilosophy",
+    "methodology": "逍遥游：超越世俗功利的自由境界。齐物论：万物没有绝对的差别，放下执着。无用之用：不被功利标准定义价值。",
+    "goldenQuote": "天地与我并生，而万物与我为一。",
+    "usageGuide": "用户被功利标准或他人评价困扰时引用。帮助松弛心态。",
+    "tags": ["逍遥", "齐物", "自由", "道家"]
+  },
+  {
+    "id": "mlk",
+    "nameCn": "马丁·路德·金",
+    "nameEn": "Martin Luther King Jr.",
+    "domain": "lifePhilosophy",
+    "methodology": "非暴力抵抗：以道德力量对抗不公。我有一个梦想：清晰的愿景驱动行动。信念即使看不到结果也坚持。",
+    "goldenQuote": "I have a dream. 我有一个梦想。",
+    "usageGuide": "用户为一个长期目标感到疲惫时引用。愿景的力量。",
+    "tags": ["梦想", "非暴力", "正义", "信念"]
+  },
+  {
+    "id": "wangyangming",
+    "nameCn": "王阳明",
+    "nameEn": "Wang Yangming",
+    "domain": "lifePhilosophy",
+    "methodology": "知行合一：知道不做到等于不知道。致良知：每个人都有内在的道德判断力，向内求而非向外求。心即理：心外无物，真理在内心。",
+    "goldenQuote": "破山中贼易，破心中贼难。",
+    "usageGuide": "用户知道该做什么但迟迟不行动时引用。",
+    "tags": ["知行合一", "良知", "心学", "行动"]
+  },
+  {
+    "id": "buddha",
+    "nameCn": "佛陀",
+    "nameEn": "Buddha",
+    "domain": "lifePhilosophy",
+    "methodology": "四圣谛：苦存在→苦有原因→苦可灭→有灭苦之道。八正道：正确的见地、思维、语言、行为、生计、精进、念、定。中道：不走极端。",
+    "goldenQuote": "一切有为法，如梦幻泡影，如露亦如电，应作如是观。",
+    "usageGuide": "用户深陷执念或痛苦时引用。帮助觉察执着的根源。",
+    "tags": ["觉察", "放下", "中道", "慈悲"]
+  },
+  {
+    "id": "socrates",
+    "nameCn": "苏格拉底",
+    "nameEn": "Socrates",
+    "domain": "lifePhilosophy",
+    "methodology": "产婆术：通过不断提问帮助对方自己发现真理。我只知道我一无所知：保持认知谦逊。未经审视的人生不值得过。",
+    "goldenQuote": "未经审视的人生不值得过。",
+    "usageGuide": "用户做重大决定前需要深度反思时引用。",
+    "tags": ["提问", "反思", "谦逊", "审视"]
+  },
+  {
+    "id": "laozi",
+    "nameCn": "老子",
+    "nameEn": "Laozi",
+    "domain": "lifePhilosophy",
+    "methodology": "无为而治：不强行干预，顺其自然。上善若水：像水一样柔软而有力，适应一切形状。反者道之动：事物发展到极点会向反面转化。",
+    "goldenQuote": "上善若水，水善利万物而不争。",
+    "usageGuide": "用户试图强行控制不可控的事时引用。",
+    "tags": ["无为", "自然", "柔弱", "道家"]
+  },
+  {
+    "id": "sartre",
+    "nameCn": "萨特",
+    "nameEn": "Jean-Paul Sartre",
+    "domain": "lifePhilosophy",
+    "methodology": "存在先于本质：你不是任何预设的角色，你的选择造就你。他人即地狱：过度在意他人眼光会失去自我。绝对自由带来绝对责任。",
+    "goldenQuote": "人是自由的，人注定自由，人背负着自由的重量。",
+    "usageGuide": "用户被'应该'困住时引用。提醒用户自己才是选择的主体。",
+    "tags": ["自由", "选择", "责任", "存在"]
+  },
+  {
+    "id": "wittgenstein",
+    "nameCn": "维特根斯坦",
+    "nameEn": "Wittgenstein",
+    "domain": "lifePhilosophy",
+    "methodology": "语言游戏：很多哲学问题其实是语言的误用。凡不可言说的，必须保持沉默。意义在使用中产生。",
+    "goldenQuote": "我的语言的界限意味着我的世界的界限。",
+    "usageGuide": "用户陷入语义之争或过度抽象时引用。",
+    "tags": ["语言", "逻辑", "沉默", "分析"]
+  },
+  {
+    "id": "tagore",
+    "nameCn": "泰戈尔",
+    "nameEn": "Rabindranath Tagore",
+    "domain": "lifePhilosophy",
+    "methodology": "诗意智慧：用美的语言揭示深刻真理。世界以痛吻我，要我报之以歌。教育与自然：真正的教育是让心灵自由。",
+    "goldenQuote": "世界以痛吻我，要我报之以歌。",
+    "usageGuide": "用户在痛苦中需要温暖和诗意的力量时引用。",
+    "tags": ["诗意", "美", "教育", "东方智慧"]
+  },
+  {
+    "id": "luxun",
+    "nameCn": "鲁迅",
+    "nameEn": "Lu Xun",
+    "domain": "lifePhilosophy",
+    "methodology": "直面现实：不逃避，不自欺。批判国民性：敢于审视自己和社会的阴暗面。走自己的路：不在意他人眼光。",
+    "goldenQuote": "世上本没有路，走的人多了，也便成了路。",
+    "usageGuide": "用户面对社会压力或在从众与独立之间摇摆时引用。",
+    "tags": ["批判", "独立", "直面", "现实"]
+  },
+  {
+    "id": "zhouenlai",
+    "nameCn": "周恩来",
+    "nameEn": "Zhou Enlai",
+    "domain": "loveRelationship",
+    "methodology": "相敬如宾：长久关系的基础是相互尊重。外交式沟通：在冲突中寻求共识而非对抗。以和为贵但不失原则。",
+    "goldenQuote": "与有肝胆人共事，从无字句处读书。",
+    "usageGuide": "用户在亲密关系冲突中需要沟通智慧时引用。",
+    "tags": ["尊重", "沟通", "原则", "外交"]
+  },
+  {
+    "id": "debotton",
+    "nameCn": "阿兰·德波顿",
+    "nameEn": "Alain de Botton",
+    "domain": "loveRelationship",
+    "methodology": "爱的进化论：爱不是找到完美的人，而是用想象力包容不完美。浪漫主义的陷阱：过高的期待毁掉关系。日常的温柔比激情的表白更有力量。",
+    "goldenQuote": "爱不是找到一个完美的人，而是学会用不完美的眼光看待一个完美的人。",
+    "usageGuide": "用户对关系的不完美感到失望时引用。",
+    "tags": ["接纳", "日常", "浪漫", "现实"]
+  },
+  {
+    "id": "perel",
+    "nameCn": "埃丝特·佩雷尔",
+    "nameEn": "Esther Perel",
+    "domain": "loveRelationship",
+    "methodology": "激情与安全的张力：长期关系需要在安全感和新鲜感之间找到平衡。欲望需要距离：过度融合反而扼杀吸引力。",
+    "goldenQuote": "爱享受拥有，欲望需要想象。",
+    "usageGuide": "用户感到长期关系失去激情时引用。",
+    "tags": ["激情", "安全", "距离", "欲望"]
+  },
+  {
+    "id": "fromm",
+    "nameCn": "弗洛姆",
+    "nameEn": "Erich Fromm",
+    "domain": "loveRelationship",
+    "methodology": "爱的艺术：爱不是感觉，是需要学习和练习的能力。成熟的爱是在保持自我完整性的同时与他人合一。自爱是爱他人的前提。",
+    "goldenQuote": "不成熟的爱说'我爱你，因为我需要你'。成熟的爱说'我需要你，因为我爱你'。",
+    "usageGuide": "用户把爱当作被动的感觉而非主动的选择时引用。",
+    "tags": ["成熟", "主动", "自爱", "合一"]
+  },
+  {
+    "id": "gibran",
+    "nameCn": "纪伯伦",
+    "nameEn": "Kahlil Gibran",
+    "domain": "loveRelationship",
+    "methodology": "爱的空间：相爱的人之间需要空间，像神殿的柱子彼此支撑却不紧贴。给予是爱的本质。悲伤是爱被剖开后露出的深度。",
+    "goldenQuote": "彼此相爱，但不要让爱成为束缚。",
+    "usageGuide": "用户在关系中感到窒息或失去自我时引用。",
+    "tags": ["空间", "给予", "自由", "深度"]
+  },
+  {
+    "id": "beauvoir",
+    "nameCn": "波伏娃",
+    "nameEn": "Simone de Beauvoir",
+    "domain": "loveRelationship",
+    "methodology": "第二性视角：警惕关系中不自觉的权力不对等。超越性：爱不应该是自我放弃，而是两个主体相互承认。",
+    "goldenQuote": "女人不是天生的，而是后天形成的。",
+    "usageGuide": "用户在关系中有不平等感或自我牺牲倾向时引用。",
+    "tags": ["平等", "主体", "女性主义", "独立"]
+  },
+  {
+    "id": "confucius",
+    "nameCn": "孔子",
+    "nameEn": "Confucius",
+    "domain": "loveRelationship",
+    "methodology": "仁者爱人：以同理心对待所有人。己所不欲勿施于人：最基本的道德原则。礼之用和为贵：形式和仪式的目的是和谐而非约束。",
+    "goldenQuote": "己所不欲，勿施于人。",
+    "usageGuide": "用户处理人际冲突时引用。回归最朴素的同理心。",
+    "tags": ["仁爱", "礼节", "同理心", "和谐"]
+  },
+  {
+    "id": "qianzhongshu",
+    "nameCn": "钱钟书",
+    "nameEn": "Qian Zhongshu",
+    "domain": "loveRelationship",
+    "methodology": "围城：婚姻像围城，外面的人想进去，里面的人想出来。幽默化解：用智慧和笑声应对关系的荒诞。低调的深情：不必张扬的爱最真实。",
+    "goldenQuote": "婚姻是一座围城，城外的人想进去，城里的人想出来。",
+    "usageGuide": "用户对关系状态的矛盾心理感到困惑时引用。",
+    "tags": ["围城", "幽默", "低调", "婚姻"]
+  },
+  {
+    "id": "tolstoy",
+    "nameCn": "托尔斯泰",
+    "nameEn": "Leo Tolstoy",
+    "domain": "loveRelationship",
+    "methodology": "家庭是道德修炼场：日常的忍耐和付出比英雄式的爱更伟大。不幸的家庭各有各的不幸。道德自我完善：从自己做起改变关系。",
+    "goldenQuote": "幸福的家庭都是相似的，不幸的家庭各有各的不幸。",
+    "usageGuide": "用户面对家庭/亲密关系中的困难时引用。",
+    "tags": ["家庭", "忍耐", "道德", "幸福"]
+  },
+  {
+    "id": "austen",
+    "nameCn": "简·奥斯汀",
+    "nameEn": "Jane Austen",
+    "domain": "loveRelationship",
+    "methodology": "理性与感性的平衡：爱情既需要情感的指引也需要理性的判断。不为了结婚而结婚。人品和习惯比激情更重要。",
+    "goldenQuote": "一个单身男人只要有钱，就一定会想娶老婆——这是举世公认的真理。",
+    "usageGuide": "用户在理智与情感之间摇摆不定时引用。",
+    "tags": ["理智", "情感", "人品", "婚姻"]
+  },
+  {
+    "id": "jung",
+    "nameCn": "荣格",
+    "nameEn": "Carl Jung",
+    "domain": "loveRelationship",
+    "methodology": "阿尼玛/阿尼姆斯：我们爱上的往往是内在投影。自性化：在关系中成为更完整的自己。共时性：有意义的巧合值得留意。",
+    "goldenQuote": "遇见自己，才能遇见他人。",
+    "usageGuide": "用户在关系中反复遇到相似模式时引用。帮助觉察潜意识的投射。",
+    "tags": ["投射", "自性化", "潜意识", "完整"]
+  },
+  {
+    "id": "linhuiyin",
+    "nameCn": "林徽因",
+    "nameEn": "Lin Huiyin",
+    "domain": "loveRelationship",
+    "methodology": "诗意与理性并存：既能深情也能清醒地选择。独立人格：爱一个人不等于成为他的附属。美的感受力：用对生活和艺术的热爱滋养关系。",
+    "goldenQuote": "你是一树一树的花开，是燕在梁间呢喃。",
+    "usageGuide": "用户在爱情中面临理性与情感冲突时引用。",
+    "tags": ["诗意", "独立", "理性", "美"]
+  },
+  {
+    "id": "musk",
+    "nameCn": "埃隆·马斯克",
+    "nameEn": "Elon Musk",
+    "domain": "career",
+    "methodology": "第一性原理：拆解到最基本的真理，然后从零重构。火星思维：设定一个足够大的使命，日常的困难就变小了。快速迭代：失败快，学得更快。",
+    "goldenQuote": "如果一件事情足够重要，即使成功的概率很低，你也应该去做。",
+    "usageGuide": "用户在做大胆的职业决定前需要突破思维框架时引用。",
+    "tags": ["第一性原理", "使命", "迭代", "勇气"]
+  },
+  {
+    "id": "bezos",
+    "nameCn": "杰夫·贝索斯",
+    "nameEn": "Jeff Bezos",
+    "domain": "career",
+    "methodology": "遗憾最小化框架：想象80岁的自己，会不会后悔没做这件事？Day 1心态：永远保持创业第一天的紧迫感和顾客导向。长期思考：用5-7年的眼光做决定。",
+    "goldenQuote": "我选择不做什么，和我选择做什么同样重要。",
+    "usageGuide": "用户面对重大职业选择时引用。遗憾最小化框架特别适合纠结型决策。",
+    "tags": ["遗憾最小化", "长期", "客户导向", "选择"]
+  },
+  {
+    "id": "altman",
+    "nameCn": "山姆·奥特曼",
+    "nameEn": "Sam Altman",
+    "domain": "career",
+    "methodology": "复利思维：选择能产生复利效应的事——学到的技能可以复用，建立的关系可以生长。做少数但重要的事。寻找陡峭的学习曲线。",
+    "goldenQuote": "复利是宇宙中最强大的力量——把它应用到你的职业生涯中。",
+    "usageGuide": "用户在职业早期规划或选择赛道时引用。",
+    "tags": ["复利", "学习曲线", "专注", "长期"]
+  },
+  {
+    "id": "napoleonhill",
+    "nameCn": "拿破仑·希尔",
+    "nameEn": "Napoleon Hill",
+    "domain": "career",
+    "methodology": "思考致富：明确的目标+持续的信心+具体的计划。智囊团：借助他人的智慧放大了自己的思考。每一次失败都带着同等利益的种子。",
+    "goldenQuote": "你想什么，你就能成为什么。",
+    "usageGuide": "用户对自己能否达成目标感到怀疑时引用。",
+    "tags": ["目标", "信念", "智囊团", "坚持"]
+  },
+  {
+    "id": "hassabis",
+    "nameCn": "戴密斯·哈萨比斯",
+    "nameEn": "Demis Hassabis",
+    "domain": "career",
+    "methodology": "跨学科创新：把AI和神经科学结合起来解决根本问题。20%时间探索：给好奇心留空间。系统级思考：从第一性原理推导到具体实践。",
+    "goldenQuote": "解决智能，然后用智能解决其他一切问题。",
+    "usageGuide": "用户考虑是否要转入创新/科技领域时引用。",
+    "tags": ["跨学科", "AI", "创新", "系统思维"]
+  },
+  {
+    "id": "grove",
+    "nameCn": "安迪·格鲁夫",
+    "nameEn": "Andy Grove",
+    "domain": "career",
+    "methodology": "只有偏执狂才能生存：对变化保持高度警觉。战略转折点：识别那些改变游戏规则的关键时刻。产出导向：衡量真正创造的价值而非忙碌的程度。",
+    "goldenQuote": "只有偏执狂才能生存。",
+    "usageGuide": "用户所在行业面临巨变或自己在犹豫是否转型时引用。",
+    "tags": ["危机意识", "战略", "转型", "执行力"]
+  },
+  {
+    "id": "inamori",
+    "nameCn": "稻盛和夫",
+    "nameEn": "Kazuo Inamori",
+    "domain": "career",
+    "methodology": "活法：工作就是修行，投入当下每一件事。利他经营：为他人创造价值自己才能成功。付出不亚于任何人的努力。",
+    "goldenQuote": "人生的结果 = 思维方式 × 热情 × 能力。",
+    "usageGuide": "用户对工作失去热情或感到浮躁时引用。",
+    "tags": ["修行", "利他", "热情", "努力"]
+  },
+  {
+    "id": "sunzi",
+    "nameCn": "孙子",
+    "nameEn": "Sun Tzu",
+    "domain": "career",
+    "methodology": "知己知彼：充分了解自己和竞争环境。不战而屈人之兵：最好的竞争是避免直接对抗。以正合以奇胜：常规打法和出奇制胜并用。",
+    "goldenQuote": "知己知彼，百战不殆。",
+    "usageGuide": "用户面对职场竞争或谈判时引用。",
+    "tags": ["战略", "知己知彼", "竞争", "奇正"]
+  },
+  {
+    "id": "zengguofan",
+    "nameCn": "曾国藩",
+    "nameEn": "Zeng Guofan",
+    "domain": "career",
+    "methodology": "结硬寨打呆仗：用笨办法稳步推进，不投机取巧。日课十二条：每日反省和自律。耐烦：做大事第一要义是耐得住烦。",
+    "goldenQuote": "天下事，当从大处着眼，小处下手。",
+    "usageGuide": "用户想走捷径或急于求成时引用。",
+    "tags": ["踏实", "自律", "忍耐", "务实"]
+  },
+  {
+    "id": "huangrenxun",
+    "nameCn": "黄仁勋",
+    "nameEn": "Jensen Huang",
+    "domain": "career",
+    "methodology": "零亿美元市场：敢于进入当时看起来不存在的市场并把它做出来。持续迭代：每年性能翻倍，不停歇地自我超越。使命大于利润：做有意义的事钱会跟着来。",
+    "goldenQuote": "要么你为食物而奔跑，要么你成为食物。",
+    "usageGuide": "用户考虑进入新领域或创业时引用。",
+    "tags": ["创新", "速度", "使命", "迭代"]
+  },
+  {
+    "id": "likaifu",
+    "nameCn": "李开复",
+    "nameEn": "Kai-Fu Lee",
+    "domain": "career",
+    "methodology": "追随内心：选择让你心跳加速的方向。AI时代的职业选择：做AI擅长的补充而非替代。跨界：最好的机会在学科交叉处。",
+    "goldenQuote": "一个世界有你，一个世界没有你，让两者的不同最大化，这就是你一生的意义。",
+    "usageGuide": "用户在科技行业做职业规划时引用。",
+    "tags": ["AI时代", "追随内心", "跨界", "影响力"]
+  },
+  {
+    "id": "leijun",
+    "nameCn": "雷军",
+    "nameEn": "Lei Jun",
+    "domain": "career",
+    "methodology": "顺势而为：站在风口上，做顺势的事。专注极致口碑快：互联网七字诀。低毛利高效率：用效率优势碾压对手。",
+    "goldenQuote": "站在风口上，猪都能飞起来。",
+    "usageGuide": "用户选择创业方向或评估市场机会时引用。",
+    "tags": ["顺势", "专注", "效率", "风口"]
+  }
+]
